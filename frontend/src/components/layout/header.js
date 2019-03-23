@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabContainer from './tabContainer';
+import logo_transparent from '../../assets/logo_transparent.png';
 
 const styles = theme => ({
   root: {
@@ -18,7 +19,8 @@ const styles = theme => ({
   },
   glow: {
     // flexGrow: 1,
-    textAlign: 'left'
+    textAlign: 'left',
+    marginLeft: 10
   },
   buttonGroup: {
     marginLeft: '15px'
@@ -27,7 +29,7 @@ const styles = theme => ({
     marginLeft: 'auto'
   },
   tabGroup: {
-    textAligh: 'left'
+    textAlign: 'left'
   }
 });
 
@@ -48,6 +50,13 @@ class Header extends React.Component {
       <div className={classes.root}>
         <AppBar position='static' color='default'>
           <Toolbar variant='dense' className={classes.toolBar}>
+            <img
+              src={logo_transparent}
+              alt='icon'
+              style={styles.icon}
+              width={60}
+              height={60}
+            />
             <Typography variant='h5' color='inherit' className={classes.glow}>
               Crisis Management System
             </Typography>

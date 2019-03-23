@@ -54,9 +54,9 @@ const styles = {
 function TabContainer(props) {
   return (
     <React.Fragment>
-      <Typography component='div' style={{ padding: 8 * 3 }}>
+      {/* <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
         Type = {props.type}
-      </Typography>
+      </Typography> */}
       <div>
         <div style={styles.row}>
           <div style={styles.divLeft}>
@@ -69,7 +69,9 @@ function TabContainer(props) {
           </div>
 
           <div zDepth={3} style={styles.divRight}>
-            <Typography style={styles.title}>Dashboard</Typography>
+            <Typography variant='h5' align='left' style={styles.title}>
+              Dashboard
+            </Typography>
             <Paper style={styles.map}>
               <Typography>Map</Typography>
             </Paper>
