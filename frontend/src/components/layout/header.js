@@ -4,16 +4,17 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import TabContainer from './tabContainer';
 
 const styles = theme => ({
   root: {
     flexGrow: 1
+  },
+  toolBar: {
+    paddingLeft: '12px'
   },
   glow: {
     // flexGrow: 1,
@@ -25,42 +26,8 @@ const styles = theme => ({
   loginButton: {
     marginLeft: 'auto'
   },
-
-  tabsRoot: {
-    marginLeft: '24px',
-    borderBottom: '1px solid #e8e8e8'
-  },
-  tabsIndicator: {
-    backgroundColor: '#1890ff'
-  },
-  tabRoot: {
-    textTransform: 'initial',
-    minWidth: 72,
-    fontWeight: theme.typography.fontWeightRegular,
-    marginRight: theme.spacing.unit * 4,
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"'
-    ].join(','),
-    '&:hover': {
-      color: '#40a9ff',
-      opacity: 1
-    },
-    '&$tabSelected': {
-      color: '#1890ff',
-      fontWeight: theme.typography.fontWeightMedium
-    },
-    '&:focus': {
-      color: '#40a9ff'
-    }
+  tabGroup: {
+    textAligh: 'left'
   }
 });
 
@@ -80,7 +47,7 @@ class Header extends React.Component {
     return (
       <div className={classes.root}>
         <AppBar position='static' color='default'>
-          <Toolbar variant='dense'>
+          <Toolbar variant='dense' className={classes.toolBar}>
             <Typography variant='h5' color='inherit' className={classes.glow}>
               Crisis Management System
             </Typography>
@@ -94,29 +61,19 @@ class Header extends React.Component {
             </div>
           </Toolbar>
           <Tabs
+            className={classes.tabGroup}
             value={value}
             onChange={this.handleChange}
-            classes={{
-              root: classes.tabsRoot,
-              indicator: classes.tabsIndicator
-            }}>
-            <Tab
-              disableRipple
-              classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-              label='All Incidents'
-            />
-            <Tab
-              disableRipple
-              classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-              label='Dengue'
-            />
-            <Tab
-              disableRipple
-              classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-              label='Haze'
-            />
+            indicatorColor='primary'
+            textColor='primary'>
+            <Tab label='All Crisis' />
+            <Tab label='Dengue' />
+            <Tab label='Haze' />
           </Tabs>
         </AppBar>
+        {value === 0 && <TabContainer type='all' />}
+        {value === 1 && <TabContainer type='dengue' />}
+        {value === 2 && <TabContainer type='haze' />}
       </div>
     );
   }
