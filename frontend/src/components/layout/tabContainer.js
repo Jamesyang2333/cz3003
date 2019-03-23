@@ -54,16 +54,20 @@ const styles = {
 function TabContainer(props) {
   return (
     <React.Fragment>
-      {/* <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
+      {/* ANCHOR  This is only for dev phase notation.
+      change of tab content depend on props.type, which can be used to detect and display different types of crisis (all / haze / dengue) */}
+      <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
         Type = {props.type}
-      </Typography> */}
+      </Typography>
       <div>
         <div style={styles.row}>
-          <div style={styles.divLeft}>
+          <div zDepth={3} style={styles.divLeft}>
             <Paper style={styles.paperLeft}>
+              {/* ANCHOR Replace the Typography with weather component  */}
               <Typography>Weather</Typography>
             </Paper>
             <Paper style={styles.paperLeft}>
+              {/* ANCHOR Replace the Typography with Overview UI component */}
               <Typography>Overview</Typography>
             </Paper>
           </div>
@@ -73,30 +77,16 @@ function TabContainer(props) {
               Dashboard
             </Typography>
             <Paper style={styles.map}>
+              {/* ANCHOR Replace the Typography with Map UI component */}
               <Typography>Map</Typography>
             </Paper>
             <Paper style={styles.statistics}>
+              {/* ANCHOR Replace the Typography with Statistics UI component */}
               <Typography>Statistics UI</Typography>
             </Paper>
           </div>
         </div>
       </div>
-      {/* <Grid container spacing={24}>
-        <Grid item lg={3}>
-          <Card>
-            <CardContent>
-              <Typography>Weather</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item lg={3}>
-          <Card>
-            <CardContent>
-              <Typography>Weather</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid> */}
     </React.Fragment>
   );
 }
