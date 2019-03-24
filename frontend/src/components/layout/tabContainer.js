@@ -8,9 +8,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
-import SimpleMap from "../map/SimpleMap";
-import LocationSearchInput from "../map/LocationSearchInput";
-
+import LocationSearchInput from "../map/locationSearchInput";
+import MarkerPoint from "../map/Map";
 const styles = {
   row: {
     display: "flex",
@@ -81,11 +80,11 @@ function TabContainer(props) {
             </Typography>
             <Paper style={styles.map}>
               {/* ANCHOR Replace the Typography with Map UI component */}
-              <SimpleMap />
+              <MarkerPoint />
             </Paper>
             <Paper style={styles.statistics}>
               {/* ANCHOR Replace the Typography with Statistics UI component */}
-              <Typography>Statistics UI</Typography>
+              <LocationSearchInput />
             </Paper>
           </div>
         </div>
