@@ -5,10 +5,24 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+class dengueManager(models.Manager):
+    def get_queryset(self):
+        return super(dengueManager,
+                     self).get_queryset() \
+            .filter(incident_type='dengue')
 
 
+class hazeManager(models.Manager):
+    def get_queryset(self):
+        return super(hazeManager,
+                     self).get_queryset() \
+            .filter(incident_type='haze')
 
 class Record(models.Model):
+    objects = models.Manager()
+    dengue = dengueManager()
+    haze = hazeManager()
+
     INCIDENT_CHOICES = (
         ('dengue', 'Dengue'),
         ('haze', 'Haze'),
@@ -60,6 +74,10 @@ class Record(models.Model):
 
     def __str__(self):
         return str(self.record_id)
+
+
+
+
 
 
 
