@@ -84,7 +84,7 @@ function TabContainer(props) {
             </Paper>
             <Paper style={styles.statistics}>
               {/* ANCHOR Replace the Typography with Statistics UI component */}
-              <LocationSearchInput />
+              <Typography>Statistics UI</Typography>
             </Paper>
           </div>
         </div>
