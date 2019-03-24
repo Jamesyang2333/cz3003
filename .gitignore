@@ -259,6 +259,7 @@ fabric.properties
 # Sonarlint plugin
 
 ### VisualStudioCode ###
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
