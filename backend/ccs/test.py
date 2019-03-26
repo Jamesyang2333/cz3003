@@ -91,7 +91,9 @@ def dengueAllData():  # list of all the data
 
 def dengue_summary():
     all_data = dengueAllData()
-    
+
+def haze_summary():
+    all_data = hazeAllData()
 
 
 # test function
