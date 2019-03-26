@@ -3,14 +3,14 @@
 # otherwise error will occur
 # TODO: fix this issue!!!
 
-from django.contrib.auth.models import User
-from ccs.models import Record
+
 import django
 import sys
 import os
 sys.path.append('..')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
 django.setup()
+from ccs.models import Record
 
 
 def hazeTotalInjured():
@@ -89,8 +89,10 @@ def dengueAllData():  # list of all the data
                      record.number_of_injured, record.number_of_death, record.estimated_starting_time])
     return data
 
+
 def dengue_summary():
     all_data = dengueAllData()
+
 
 def haze_summary():
     all_data = hazeAllData()
