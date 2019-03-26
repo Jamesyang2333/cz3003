@@ -271,3 +271,5 @@ fabric.properties
 .history
 
 # End of https://www.gitignore.io/api/django,pycharm,intellij,visualstudiocode
+
+.DS_Store
