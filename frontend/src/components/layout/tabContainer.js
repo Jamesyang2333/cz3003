@@ -1,42 +1,44 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
-import LocationSearchInput from "../map/locationSearchInput";
-import MarkerPoint from "../map/Map";
+import LocationSearchInput from '../map/LocationSearchInput';
+import MarkerPoint from '../map/Map';
+import Weather from '../weather/weather';
+
 const styles = {
   row: {
-    display: "flex",
-    flexDirection: "row wrap",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'row wrap',
+    width: '100%',
     marginTop: 30
   },
   divLeft: {
     flex: 1,
-    height: "100%",
+    height: '100%',
     margin: 30,
     marginTop: 10,
-    textAlign: "center"
+    textAlign: 'center'
     // padding: 10
   },
   divRight: {
-    height: "100%",
+    height: '100%',
     flex: 3,
     margin: 10,
     marginLeft: 60,
     marginRight: 30,
-    textAlign: "center"
+    textAlign: 'center'
   },
   paperLeft: {
     height: 350,
     marginBottom: 20,
-    textAlign: "center"
+    textAlign: 'center'
   },
 
   title: {
@@ -45,11 +47,11 @@ const styles = {
   map: {
     height: 400,
     marginBottom: 30,
-    textAligh: "center"
+    textAligh: 'center'
   },
   statistics: {
     height: 300,
-    textAligh: "center"
+    textAligh: 'center'
   }
 };
 
@@ -58,7 +60,7 @@ function TabContainer(props) {
     <React.Fragment>
       {/* ANCHOR  This is only for dev phase notation.
       change of tab content depend on props.type, which can be used to detect and display different types of crisis (all / haze / dengue) */}
-      <Typography component="div" variant="h6" style={{ padding: 8 * 3 }}>
+      <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
         Type = {props.type}
       </Typography>
       <div>
@@ -66,7 +68,7 @@ function TabContainer(props) {
           <div zDepth={3} style={styles.divLeft}>
             <Paper style={styles.paperLeft}>
               {/* ANCHOR Replace the Typography with weather component  */}
-              <Typography>Weather</Typography>
+              <Weather />
             </Paper>
             <Paper style={styles.paperLeft}>
               {/* ANCHOR Replace the Typography with Overview UI component */}
@@ -75,7 +77,7 @@ function TabContainer(props) {
           </div>
 
           <div zDepth={3} style={styles.divRight}>
-            <Typography variant="h5" align="left" style={styles.title}>
+            <Typography variant='h5' align='left' style={styles.title}>
               Dashboard
             </Typography>
             <Paper style={styles.map}>
