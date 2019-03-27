@@ -34,15 +34,16 @@ def sample_print(content):
 
 #previousPostDengueList = [] #declare outside as global
 #previousPostHazeList = [] #declare outside as global
-previousDengueDictionary = {} #declare outside as global
-previousHazeDictionary = {} #declare outside as global
 @app.task
 def facebook_manager():
+    previousDengueDictionary = {} #declare outside as global
+    previousHazeDictionary = {} #declare outside as global
+
     while True:
 
         # retrieve classification region and level
-        dengueDictionary = dengueSummaryByRegion
-        hazeDictionary = hazeSummaryByRegion
+        dengueDictionary = dengueSummaryByRegion()
+        hazeDictionary = hazeSummaryByRegion()
 
         # retrieve all dataset from database dont need this actually
         #dengueList = dengueAllData
@@ -50,49 +51,58 @@ def facebook_manager():
 
         #if no previous dengue data to compare, just post(usually for 1st ever run only)
         if not previousDengueDictionary:
+            print("POST FACEBOOK")
+            previousDengueDictionary = dengueDictionary  # set previousDengue dictionary to become current first(cuz we need to compare all 5 regions)
             postFacebook('Dengue', dengueDictionary)
-            return
 
         # if no previous haze data to compare, just post(usually for 1st ever run only)
+        print("printing haze")
+        print(previousHazeDictionary)
         if not previousHazeDictionary:
-            postFacebook('Dengue', hazeDictionary)
-            return
-
-        #compare previous data with current data to check for any changes. If there is a change, post facebook
-        regionList = ['southWest', 'northWest', 'central', 'northEast', 'southEast']
-        dengueChanged = False
-        hazeChanged = False
-        unchangedDengueRegionList = []
-        unchangedHazeRegionList = []
-        for region in regionList:
-            dengueClassification = dengueDictionary[region]['class']
-            hazeClassification = hazeDictionary[region]['class']
-            prevDengueClass = previousDengueDictionary[region]['class']
-            prevHazeClass = previousHazeDictionary[region]['class']
-
-            if dengueClassification == prevDengueClass:
-                dengueChanged= True
-                unchangedDengueRegionList.append(region)
-
-            if hazeClassification == prevHazeClass:
-                hazeChanged= True
-                unchangedHazeRegionList.append(region)
-
-        #if there are no changes to the situation, dont update facebook
-        if dengueChanged == False and hazeChanged == False:
-            return
-        #else update facebook
-        if(dengueChanged==True):
-            previousDengueDictionary = dengueDictionary #set previousDengue dictionary to become current first(cuz we need to compare all 5 regions)
-            for region in unchangedDengueRegionList:
-                del dengueDictionary[region]
-            postFacebook('Dengue', dengueDictionary)
-
-        if (hazeChanged == True):
+            print("POST HAZE")
             previousHazeDictionary = hazeDictionary  # set previousDengue dictionary to become current first(cuz we need to compare all 5 regions)
-            for region in unchangedHazeRegionList:
-                del hazeDictionary[region]
-            postFacebook('Haze', dengueDictionary)
+            postFacebook('Haze', hazeDictionary)
+            
+        if previousDengueDictionary or previousHazeDictionary:
+            #compare previous data with current data to check for any changes. If there is a change, post facebook
+            regionList = ['southWest', 'northWest', 'central', 'northEast', 'southEast']
+            dengueChanged = False
+            hazeChanged = False
+            unchangedDengueRegionList = []
+            unchangedHazeRegionList = []
+            for region in regionList:
+                dengueClassification = dengueDictionary[region]['class']
+                hazeClassification = hazeDictionary[region]['class']
+                prevDengueClass = previousDengueDictionary[region]['class']
+                prevHazeClass = previousHazeDictionary[region]['class']
+
+                if dengueClassification == prevDengueClass:
+                    unchangedDengueRegionList.append(region)
+                else:
+                    dengueChanged= True
+
+                if hazeClassification == prevHazeClass:
+                    unchangedHazeRegionList.append(region)
+                else:
+                    hazeChanged = True
+
+            #if there are no changes to the situation, dont update facebook
+            print("hazechanged?")
+            print(hazeChanged)
+            print("denguechanged?")
+            print(dengueChanged)
+            #else update facebook
+            if(dengueChanged==True):
+                previousDengueDictionary = dengueDictionary.copy() #set previousDengue dictionary to become current first(cuz we need to compare all 5 regions)
+                for region in unchangedDengueRegionList:
+                    del dengueDictionary[region]
+                postFacebook('Dengue', dengueDictionary)
+
+            if (hazeChanged == True):
+                previousHazeDictionary = hazeDictionary.copy()  # set previousDengue dictionary to become current first(cuz we need to compare all 5 regions)
+                for region in unchangedHazeRegionList:
+                    del hazeDictionary[region]
+                postFacebook('Haze', hazeDictionary)
 
         time.sleep(5)
 
