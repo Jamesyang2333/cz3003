@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-import LocationSearchInput from '../../map/LocationSearchInput';
 import MarkerPoint from '../../map/Map';
 import TestList from '../testList';
 
@@ -64,9 +59,15 @@ class HazeTab extends Component {
   }
 
   render() {
-    const { alls } = this.props;
+    const { hazes } = this.props;
+    const events = hazes;
     return (
       <React.Fragment>
+        <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
+          {events.map(event => (
+            <TestList info={event} />
+          ))}
+        </Typography>
         <div>
           <div style={styles.row}>
             <div zDepth={3} style={styles.divLeft}>
@@ -100,7 +101,8 @@ class HazeTab extends Component {
 }
 
 HazeTab.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  getAll: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

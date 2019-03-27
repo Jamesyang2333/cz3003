@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
+
 import Paper from '@material-ui/core/Paper';
 
-import LocationSearchInput from '../../map/LocationSearchInput';
 import MarkerPoint from '../../map/Map';
 import TestList from '../testList';
 
@@ -65,8 +61,14 @@ class AllTab extends Component {
 
   render() {
     const { alls } = this.props;
+    const events = alls;
     return (
       <React.Fragment>
+        <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
+          {events.map(event => (
+            <TestList info={event} />
+          ))}
+        </Typography>
         <div>
           <div style={styles.row}>
             <div zDepth={3} style={styles.divLeft}>
@@ -99,9 +101,9 @@ class AllTab extends Component {
   }
 }
 
-// AllTab.propTypes = {
-//   children: PropTypes.node.isRequired
-// };
+AllTab.propTypes = {
+  getAll: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   alls: state.crisis.alls,
