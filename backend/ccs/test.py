@@ -91,7 +91,7 @@ def dengueAllData():  # list of all the data
     return data
 
 
-def dengue_summary_region(): 
+def dengueSummaryByRegion(): 
     # Returns a dictionary of dictionaries
     # The entire dicionary has five keys: 'southWest', 'northWest', 'central', 'northEast', 'southEast', the five regions of Singapore
     # The value associated with each key is a dictionary {'numOfInjured': XX, 'numOfDeaths': XX, 'class': XX}
@@ -121,7 +121,7 @@ def dengue_summary_region():
     return summary
     
 
-def haze_summary_region():
+def hazeSummaryByRegion():
     # Returns a dictionary of dictionaries
     # The entire dicionary has five keys: 'southWest', 'northWest', 'central', 'northEast', 'southEast', the five regions of Singapore
     # The value associated with each key is a dictionary {'PSI: XX, class': XX}
@@ -137,7 +137,7 @@ def haze_summary_region():
         if cnt == 1:
             continue
         if (now - record[1]).total_seconds() <= 86400:
-            summary[record[3]]['PSI'] = max(summary[record[3]]['PSI'], record[8])
+            summary[record[3]]['PSI'] = record[8]
     for key in regionList:
         if summary[key]['PSI'] <= 50:
             summary[key]['class'] = 'Good'
@@ -151,19 +151,42 @@ def haze_summary_region():
             summary[key]['class'] = 'Hazardous'
     return summary
 
+def allAssistance():
+    hazeAll = hazeAllData()
+    dengueAll = dengueAllData()
+    result = []
+    cnt = 0
+    for record in hazeAll:
+        cnt += 1
+        if cnt == 1:
+            continue
+        if(record[4] != 'none'):
+            record.append('haze')
+            result.append(record)
+    cnt = 0
+    for record in dengueAll:
+        cnt += 1
+        if cnt == 1:
+            continue
+        if(record[4] != 'none'):
+            record.append('dengue')
+            result.append(record)
+    return result
+        
+        
+if __name__ == "__main__":
+    # How to use the functions
+    print("print all haze record with all data")
+    haze = hazeAllData()
+    print(haze)
+    print()
 
-# How to use the functions
-print("print all haze record with all data")
-haze = hazeAllData()
-print(haze)
-print()
+    print("print haze record summary by region")
+    summary = hazeSummaryByRegion()
+    print(summary)
+    print()
 
-print("print haze record summary by region")
-summary = haze_summary_region()
-print(summary)
-print()
-
-print("get the psi and class of southWest region")
-print(summary['southWest']['PSI'])
-print(summary['southWest']['class'])
+    print("get the psi and class of southWest region")
+    print(summary['southWest']['PSI'])
+    print(summary['southWest']['class'])
 
