@@ -2,6 +2,8 @@ from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
 import time
+from ccs.test import allAssistance, dengueSummaryByRegion, hazeSummaryByRegion
+from backend.sms import sendSMS
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
@@ -26,7 +28,7 @@ def debug_task(self):
 @app.task
 def sample_print(content):
     while True:
-        print(content)
+        print("hello")
         time.sleep(5)
 
 
@@ -42,7 +44,21 @@ def twitter_manager():
 
 @app.task
 def sms_manager():
-    pass
+    currentIDs = set()
+    while True:
+        allEvents = allAssistance()
+        for record in allEvents:
+            if not (record[0] in currentIDs):
+                currentIDs.add(record[0])
+                emergencyType = 'Haze'
+                if(record[-1] == 'dengue'):
+                    emergencyType = 'Dengue'
+                assistanceType = 'Emergency Ambulance'
+                if(record[4] == 'rescueEvacuation'):
+                    assistanceType = 'Rescue Evacuation'
+                sendSMS(emergencyType, assistanceType, record[2], 'SCDF')
+        time.sleep(60)
+            
 
 
 @app.task
