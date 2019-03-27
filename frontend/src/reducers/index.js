@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import headerReducer from './headerReducer';
+import crisisReducer from './crisisReducer';
 
 export default combineReducers({
-  header: headerReducer
+  crisis: crisisReducer
 });
