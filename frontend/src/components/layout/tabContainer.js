@@ -12,37 +12,39 @@ import LocationSearchInput from '../map/LocationSearchInput';
 import MarkerPoint from '../map/Map';
 import Weather from '../weather/weather';
 import TestList from './testList';
+import SearchBar from "../map/Autocomplete";
 
 import { connect } from 'react-redux';
 import { getAll } from '../../actions/crisisAction';
 
+
 const styles = {
   row: {
-    display: 'flex',
-    flexDirection: 'row wrap',
-    width: '100%',
+    display: "flex",
+    flexDirection: "row wrap",
+    width: "100%",
     marginTop: 30
   },
   divLeft: {
     flex: 1,
-    height: '100%',
+    height: "100%",
     margin: 30,
     marginTop: 10,
-    textAlign: 'center'
+    textAlign: "center"
     // padding: 10
   },
   divRight: {
-    height: '100%',
+    height: "100%",
     flex: 3,
     margin: 10,
     marginLeft: 60,
     marginRight: 30,
-    textAlign: 'center'
+    textAlign: "center"
   },
   paperLeft: {
     height: 350,
     marginBottom: 20,
-    textAlign: 'center'
+    textAlign: "center"
   },
 
   title: {
@@ -51,11 +53,11 @@ const styles = {
   map: {
     height: 400,
     marginBottom: 30,
-    textAligh: 'center'
+    textAligh: "center"
   },
   statistics: {
     height: 300,
-    textAligh: 'center'
+    textAligh: "center"
   }
 };
 
