@@ -18,6 +18,7 @@ class hazeManager(models.Manager):
                      self).get_queryset() \
             .filter(incident_type='haze')
 
+
 class Record(models.Model):
     objects = models.Manager()
     dengue = dengueManager()
@@ -31,13 +32,21 @@ class Record(models.Model):
     ASSISTANCE_CHOICES = (
         ('emergencyAmbulance', 'Emergency Ambulance'),
         ('rescueEvacuation', 'Rescue Evacuation'),
+        ('none', 'None')
+    )
+
+    REGION_CHOICES = (
+        ('southWest', 'South West'),
+        ('northWest', 'NorthWest'),
+        ('central', 'Central'),
+        ('northEast', 'North East'),
+        ('southEast', 'South East'),
     )
 
     STATUS_CHOICES = (
         ('pending', 'Pending'),
         ('resolved', 'Resolved'),
     )
-
 
     # record the date when the record is created and updated
     date = models.DateTimeField(default=timezone.now)
@@ -52,50 +61,28 @@ class Record(models.Model):
 
     # information related to incident
     incident_location = models.CharField(max_length=200)
+    incident_region = models.CharField(
+        max_length=20, choices=REGION_CHOICES, default='southWest')
     incident_type = models.CharField(max_length=10,
-                             choices=INCIDENT_CHOICES,
-                             default='dengue')
-    incident_assistanceRequired = models.CharField(max_length=20,
-                             choices=ASSISTANCE_CHOICES,
-                             default='emergencyAmbulance')
+                                     choices=INCIDENT_CHOICES,
+                                     default='dengue')
+    incident_assistance_required = models.CharField(max_length=20,
+                                                    choices=ASSISTANCE_CHOICES,
+                                                    default='none')
     incident_status = models.CharField(max_length=20,
-                             choices=STATUS_CHOICES,
-                             default='pending')
-
+                                       choices=STATUS_CHOICES,
+                                       default='pending')
 
     # key indicators
-    key_indicator_numOfInjured = models.IntegerField(null=True,blank=True)
-    key_indicator_numOfdeaths = models.IntegerField(null=True,blank=True)
+    number_of_injured = models.IntegerField(null=True, blank=True)
+    number_of_death = models.IntegerField(null=True, blank=True)
+    pollutant_standards_index = models.IntegerField(blank=True, null=True)
     # this variable performs the function of storing lasting time
-    key_indicator_estimateStartingTime = models.DateTimeField(null=True,blank=True)
+    estimated_starting_time = models.DateTimeField(
+        null=True, blank=True)
 
     class Meta:
         ordering = ('record_id',)
 
     def __str__(self):
         return str(self.record_id)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
