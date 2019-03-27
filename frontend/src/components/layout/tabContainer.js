@@ -7,6 +7,8 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import IncidentTable from "../table/Table";
+import CrisisOverview from "../table/CrisisOverview";
 
 import SearchBar from "../map/Autocomplete";
 import MarkerPoint from "../map/Map";
@@ -72,7 +74,9 @@ function TabContainer(props) {
             </Paper>
             <Paper style={styles.paperLeft}>
               {/* ANCHOR Replace the Typography with Overview UI component */}
-              <Typography>Overview</Typography>
+              <Typography>
+                <CrisisOverview />
+              </Typography>
             </Paper>
           </div>
 
@@ -85,7 +89,11 @@ function TabContainer(props) {
               <MarkerPoint />
             </Paper>
             {/* ANCHOR Replace the Typography with Statistics UI component */}
-            <Paper style={styles.statistics}>Statistics UI</Paper>
+            <Paper style={styles.statistics}>
+              <Typography>
+                <IncidentTable />
+              </Typography>
+            </Paper>
           </div>
         </div>
       </div>
