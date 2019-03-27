@@ -85,7 +85,7 @@ function TabContainer(props) {
               <MarkerPoint />
             </Paper>
             {/* ANCHOR Replace the Typography with Statistics UI component */}
-            <SearchBar />
+            <Paper style={styles.statistics}>Statistics UI</Paper>
           </div>
         </div>
       </div>
