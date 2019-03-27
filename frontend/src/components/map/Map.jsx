@@ -7,10 +7,13 @@ import shouldPureComponentUpdate from "react-pure-render/function";
 import PropTypes from "prop-types";
 import GoogleMap from "google-map-react";
 import Marker from "./Marker";
-
+import { findDOMNode } from "react-dom";
+import ReactTooltip from "react-tooltip";
+import { getAll } from "../../actions/crisisAction";
+import { connect } from "react-redux";
 import { K_CIRCLE_SIZE, K_STICK_SIZE } from "./markerStyle.js";
 
-export default class MarkerPoint extends Component {
+class MarkerPoint extends Component {
   static propTypes = {
     center: PropTypes.array,
     zoom: PropTypes.number,
@@ -56,6 +59,8 @@ export default class MarkerPoint extends Component {
   };
 
   render() {
+    const { alls } = this.props;
+    const events = alls;
     return (
       <GoogleMap
         apiKey={"AIzaSyDoZcMEFpETN7gbyOC8dZqOvriFdzDdkyo"} // set if you need stats etc ...
@@ -69,8 +74,20 @@ export default class MarkerPoint extends Component {
         hoverDistance={K_CIRCLE_SIZE}
         distanceToMouse={this._distanceToMouse}
       >
-        {/* <Marker lat={1.36} lng={103.8} text={"A"} zIndex={1} /> */}
+        {/* <p data-tip="hello world">Tooltip</p> */}
+        <Marker lat={1.36} lng={103.8} text={"A"} zIndex={1} />
       </GoogleMap>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  alls: state.crisis.alls
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    getAll
+  }
+)(MarkerPoint);
