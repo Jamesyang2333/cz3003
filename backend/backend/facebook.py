@@ -7,19 +7,20 @@ def postFacebook(crisisType, dataDictionary):
         fb = facebook.GraphAPI(access_token=token)
 
         #classfication, regionList, numOfInjured, numOfDeaths, PSI
-        message = '**UPDATE**' + \
-                  '\nCrisis: ' + crisisType
-        if(crisisType =='Dengue'):
+        message = '**UPDATE**' + '\nCrisis: ' + crisisType
+        if(crisisType == 'Dengue'):
+            print("POST2: DENGUE")
             for key in dataDictionary:
                 message += '\n\nRegion: ' + key +\
                            '\nClassification Level: ' + dataDictionary[key]['class']\
-                           +  '\nNumber of Injured: ' + dataDictionary[key]['numOfInjured']\
-                           +  '\nNumber of Deaths: ' + dataDictionary[key]['numOfDeaths']
+                           +  '\nNumber of Injured: ' + str(dataDictionary[key]['numOfInjured'])\
+                           +  '\nNumber of Deaths: ' + str(dataDictionary[key]['numOfDeaths'])
 
         if (crisisType == 'Haze'):
+            print("POST2: HAZE")
             for key in dataDictionary:
                 message += '\n\nRegion: ' + key\
                            +  '\nClassification Level: ' + dataDictionary[key]['class']\
-                           +  '\nPSI Level: ' + dataDictionary[key]['PSI']
+                           +  '\nPSI Level: ' + str(dataDictionary[key]['PSI'])
 
         fb.put_object(parent_object='me', connection_name='feed', message=message)
