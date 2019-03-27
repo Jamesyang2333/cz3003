@@ -47,8 +47,6 @@ def hazeAllData():  # list of all the data
     data = [['record_id', 'date', 'incident_location', 'incident_region', 'incident_assistanceRequired',
              'incident_status', 'numOfInjured', 'numOfdeaths', 'PSI', 'estimateStartingTime']]
     for record in hazeRecords:
-        print(record)
-        print(record)
         data.append([record.record_id, record.date, record.incident_location, record.incident_region, record.incident_assistance_required, record.incident_status,
                      record.number_of_injured, record.number_of_death, record.pollutant_standards_index, record.estimated_starting_time])
     return data
@@ -95,7 +93,7 @@ def dengueAllData():  # list of all the data
 
 def dengue_summary_region(): 
     # Returns a dictionary of dictionaries
-    # The first dicionary has five keys: 'southWest', 'northWest', 'central', 'northEast', 'southEast', the five regions of Singapore
+    # The entire dicionary has five keys: 'southWest', 'northWest', 'central', 'northEast', 'southEast', the five regions of Singapore
     # The value associated with each key is a dictionary {'numOfInjured': XX, 'numOfDeaths': XX, 'class': XX}
     all_data = dengueAllData()
     regionList = ['southWest', 'northWest', 'central', 'northEast', 'southEast']
@@ -125,7 +123,7 @@ def dengue_summary_region():
 
 def haze_summary_region():
     # Returns a dictionary of dictionaries
-    # The first dicionary has five keys: 'southWest', 'northWest', 'central', 'northEast', 'southEast', the five regions of Singapore
+    # The entire dicionary has five keys: 'southWest', 'northWest', 'central', 'northEast', 'southEast', the five regions of Singapore
     # The value associated with each key is a dictionary {'PSI: XX, class': XX}
     all_data = hazeAllData()
     regionList = ['southWest', 'northWest', 'central', 'northEast', 'southEast']
@@ -140,7 +138,6 @@ def haze_summary_region():
             continue
         if (now - record[1]).total_seconds() <= 86400:
             summary[record[3]]['PSI'] = max(summary[record[3]]['PSI'], record[8])
-    print(summary)
     for key in regionList:
         if summary[key]['PSI'] <= 50:
             summary[key]['class'] = 'Good'
@@ -155,18 +152,18 @@ def haze_summary_region():
     return summary
 
 
-# test function
-print("print all dengue record with all data")
+# How to use the functions
+print("print all haze record with all data")
 haze = hazeAllData()
 print(haze)
+print()
+
+print("print haze record summary by region")
 summary = haze_summary_region()
 print(summary)
-# print(len(dengue[0]))
-# print(dengue[0])
-# print(len(dengue[1]))
-# print(dengue[1])
-# now = datetime.datetime.now(datetime.timezone.utc)
-# print(now)
-# diff = now - dengue[1][1]
-# print(type(diff))
-# print(diff.total_seconds())
+print()
+
+print("get the psi and class of southWest region")
+print(summary['southWest']['PSI'])
+print(summary['southWest']['class'])
+
