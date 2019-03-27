@@ -82,7 +82,7 @@ class MarkerPoint extends Component {
 }
 
 const mapStateToProps = state => ({
-  alls: state.cisis.alls
+  alls: state.crisis.alls
 });
 
 export default connect(
