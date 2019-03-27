@@ -115,7 +115,7 @@ def dengueSummaryByRegion():
         if (summary[key]['numOfInjured'] + summary[key]['numOfDeaths']) == 0:
             summary[key]['class'] = 'Green'
         elif (summary[key]['numOfInjured'] + summary[key]['numOfDeaths']) < 10:
-            summary[key]['class'] = 'Yello'
+            summary[key]['class'] = 'Yellow'
         else:
             summary[key]['class'] = 'Red'
     return summary
