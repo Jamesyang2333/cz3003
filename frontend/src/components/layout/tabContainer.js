@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import LocationSearchInput from '../map/LocationSearchInput';
 import MarkerPoint from '../map/Map';
 import TestList from './testList';
+import SearchBar from "../map/Autocomplete";
 
 import { connect } from 'react-redux';
 import { getAll } from '../../actions/crisisAction';
