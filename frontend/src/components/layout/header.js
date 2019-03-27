@@ -8,6 +8,9 @@ import Button from '@material-ui/core/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabContainer from './tabContainer';
+import AllTab from './tabs/allTabs';
+import DengueTab from './tabs/dengueTab';
+import HazeTab from './tabs/hazeTab';
 import logo_transparent from '../../assets/logo_transparent.png';
 
 const styles = theme => ({
@@ -80,9 +83,21 @@ class Header extends React.Component {
             <Tab label='Haze' />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer type='all' />}
-        {value === 1 && <TabContainer type='dengue' />}
-        {value === 2 && <TabContainer type='haze' />}
+        {value === 0 && (
+          <TabContainer type='all'>
+            <AllTab />
+          </TabContainer>
+        )}
+        {value === 1 && (
+          <TabContainer type='dengue'>
+            <DengueTab />
+          </TabContainer>
+        )}
+        {value === 2 && (
+          <TabContainer type='haze'>
+            <HazeTab />
+          </TabContainer>
+        )}
       </div>
     );
   }
