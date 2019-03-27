@@ -7,6 +7,8 @@ import shouldPureComponentUpdate from "react-pure-render/function";
 import PropTypes from "prop-types";
 import GoogleMap from "google-map-react";
 import Marker from "./Marker";
+import { findDOMNode } from "react-dom";
+import ReactTooltip from "react-tooltip";
 
 import { K_CIRCLE_SIZE, K_STICK_SIZE } from "./markerStyle.js";
 
@@ -69,7 +71,8 @@ export default class MarkerPoint extends Component {
         hoverDistance={K_CIRCLE_SIZE}
         distanceToMouse={this._distanceToMouse}
       >
-        {/* <Marker lat={1.36} lng={103.8} text={"A"} zIndex={1} /> */}
+        <p data-tip="hello world">Tooltip</p>
+        <Marker lat={1.36} lng={103.8} text={"A"} zIndex={1} />
       </GoogleMap>
     );
   }

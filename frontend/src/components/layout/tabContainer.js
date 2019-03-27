@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-
-import LocationSearchInput from '../map/LocationSearchInput';
-import MarkerPoint from '../map/Map';
-import Weather from '../weather/weather';
-import TestList from './testList';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import { findDOMNode } from "react-dom";
+import ReactTooltip from "react-tooltip";
+// import LocationSearchInput from '../map/LocationSearchInput';
+import MarkerPoint from "../map/Map";
+import Weather from "../weather/weather";
+import TestList from "./testList";
 import SearchBar from "../map/Autocomplete";
 
-import { connect } from 'react-redux';
-import { getAll } from '../../actions/crisisAction';
-
+import { connect } from "react-redux";
+import { getAll } from "../../actions/crisisAction";
 
 const styles = {
   row: {
@@ -67,15 +67,15 @@ class TabContainer extends Component {
   }
 
   render() {
-    const { alls } = this.props;
+    const { alls, hazes, dengues } = this.props;
     return (
       <React.Fragment>
         {/* ANCHOR  This is only for dev phase notation.
         change of tab content depend on props.type, which can be used to detect and display different types of crisis (all / haze / dengue) */}
-        <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
+        <Typography component="div" variant="h6" style={{ padding: 8 * 3 }}>
           Type = {this.props.type}
         </Typography>
-        <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
+        <Typography component="div" variant="h6" style={{ padding: 8 * 3 }}>
           {alls.map(all => (
             <TestList info={all} />
           ))}
@@ -94,11 +94,17 @@ class TabContainer extends Component {
             </div>
 
             <div zDepth={3} style={styles.divRight}>
-              <Typography variant='h5' align='left' style={styles.title}>
+              <Typography variant="h5" align="left" style={styles.title}>
                 Dashboard
               </Typography>
+              <p data-tip="hello world">Tooltip</p>
+              {/* <button
+                onClick={() => {
+                  ReactTooltip.hide(findDOMNode(this.refs.foo));
+                }}
+              /> */}
+              <ReactTooltip />
               <Paper style={styles.map}>
-                {/* ANCHOR Replace the Typography with Map UI component */}
                 <MarkerPoint />
               </Paper>
               <Paper style={styles.statistics}>
