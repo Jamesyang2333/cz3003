@@ -19,14 +19,13 @@ const markerCircleStyle = {
   height: K_CIRCLE_SIZE,
   border: "3px solid #f44336",
   borderRadius: K_CIRCLE_SIZE,
-  backgroundColor: "white",
+  backgroundColor: "#f44336",
   textAlign: "center",
   color: "#3f51b5",
   fontSize: 15,
   fontWeight: "bold",
   padding: 0,
-  cursor: "pointer",
-  boxShadow: "0 0 0 1px white"
+  cursor: "pointer"
 };
 
 const markerCircleStyleHover = {
