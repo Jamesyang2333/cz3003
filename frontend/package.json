@@ -23,7 +23,8 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "yarn": "^1.13.0",
-    "react-tooltip": "3.10.0"
+    "react-tooltip": "3.10.0",
+    "react-geocode": "0.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
