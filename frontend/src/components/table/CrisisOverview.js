@@ -1,15 +1,18 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import ErrorIcon from "@material-ui/icons/Error";
-import InfoIcon from "@material-ui/icons/Info";
-import green from "@material-ui/core/colors/green";
-import amber from "@material-ui/core/colors/amber";
-import IconButton from "@material-ui/core/IconButton";
-import SnackbarContent from "@material-ui/core/SnackbarContent";
-import WarningIcon from "@material-ui/icons/Warning";
-import { withStyles } from "@material-ui/core/styles";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
+import InfoIcon from '@material-ui/icons/Info';
+import green from '@material-ui/core/colors/green';
+import amber from '@material-ui/core/colors/amber';
+import IconButton from '@material-ui/core/IconButton';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import WarningIcon from '@material-ui/icons/Warning';
+import { withStyles } from '@material-ui/core/styles';
+
+import { getAll } from '../../actions/crisisAction';
+import { connect } from 'react-redux';
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -33,8 +36,8 @@ const styles1 = theme => ({
     marginRight: theme.spacing.unit
   },
   message: {
-    display: "flex",
-    alignItems: "center"
+    display: 'flex',
+    alignItems: 'center'
   }
 });
 
@@ -45,18 +48,18 @@ function MySnackbarContent(props) {
   return (
     <SnackbarContent
       className={classNames(classes[variant], className)}
-      aria-describedby="client-snackbar"
+      aria-describedby='client-snackbar'
       message={
-        <span id="client-snackbar" className={classes.message}>
+        <span id='client-snackbar' className={classes.message}>
           <Icon className={classNames(classes.icon, classes.iconVariant)} />
           {message}
         </span>
       }
       action={[
         <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
+          key='close'
+          aria-label='Close'
+          color='inherit'
           className={classes.close}
           onClick={onClose}
         />
@@ -70,7 +73,7 @@ MySnackbarContent.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   message: PropTypes.node,
-  variant: PropTypes.oneOf(["success", "warning"]).isRequired
+  variant: PropTypes.oneOf(['success', 'warning']).isRequired
 };
 
 const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
@@ -82,20 +85,25 @@ const styles2 = theme => ({
 });
 
 class CrisisOverview extends Component {
+  componentDidMount() {
+    this.props.getAll();
+  }
   render() {
+    const { alls } = this.props;
+    console.log(alls);
     const { classes } = this.props;
     return (
       <div>
         <h3>Crisis Overview</h3>
         <MySnackbarContentWrapper
-          variant="warning"
+          variant='warning'
           className={classes.margin}
-          message="Pending!"
+          message='Pending!'
         />
         <MySnackbarContentWrapper
-          variant="success"
+          variant='success'
           className={classes.margin}
-          message="Resolved!"
+          message='Resolved!'
         />
       </div>
     );
@@ -106,4 +114,11 @@ CrisisOverview.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles2)(CrisisOverview);
+const mapStateToProps = state => ({
+  alls: state.crisis.alls
+});
+
+export default connect(
+  mapStateToProps,
+  { getAll }
+)(withStyles(styles2)(CrisisOverview));

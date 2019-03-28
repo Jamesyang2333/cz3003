@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import CrisisOverview from '../../table/CrisisOverview';
 import IncidentTable from '../../table/Table';
+
+import Paper from '@material-ui/core/Paper';
 
 import MarkerPoint from '../../map/Map';
 import TestList from '../testList';
 import Weather from '../../weather/weather';
 
 import { connect } from 'react-redux';
-import { getDengue } from '../../../actions/crisisAction';
+import { getAll } from '../../../actions/crisisAction';
 
 const styles = {
   row: {
@@ -37,8 +38,8 @@ const styles = {
   },
   paperLeft: {
     height: 350,
-    paddingTop: 5,
     marginBottom: 20,
+    paddingTop: 5,
     textAlign: 'center'
   },
 
@@ -56,7 +57,7 @@ const styles = {
   }
 };
 
-class DengueTab extends Component {
+class AllTab extends Component {
   state = {
     temperature: undefined,
     city: undefined,
@@ -93,12 +94,12 @@ class DengueTab extends Component {
       .catch(error => {
         console.error(error);
       });
-    this.props.getDengue();
+    this.props.getAll();
   }
 
   render() {
-    const { dengues } = this.props;
-    const events = dengues;
+    const { alls } = this.props;
+    const events = alls;
     return (
       <React.Fragment>
         <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
@@ -139,7 +140,6 @@ class DengueTab extends Component {
               </Paper>
               <Paper style={styles.statistics}>
                 {/* ANCHOR Replace the Typography with Statistics UI component */}
-
                 <IncidentTable />
               </Paper>
             </div>
@@ -150,15 +150,15 @@ class DengueTab extends Component {
   }
 }
 
-DengueTab.propTypes = {
-  getDengue: PropTypes.func.isRequired
+AllTab.propTypes = {
+  getAll: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  dengues: state.crisis.dengs
+  alls: state.crisis.alls
 });
 
 export default connect(
   mapStateToProps,
-  { getDengue }
-)(DengueTab);
+  { getAll }
+)(AllTab);

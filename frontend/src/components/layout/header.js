@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabContainer from './tabContainer';
-import AllTab from './tabs/allTabs';
+import AllTab from './tabs/allTab';
 import DengueTab from './tabs/dengueTab';
 import HazeTab from './tabs/hazeTab';
 import logo_transparent from '../../assets/logo_transparent.png';
