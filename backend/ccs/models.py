@@ -4,9 +4,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-from googlegeocoder import GoogleGeocoder
-geocoder = GoogleGeocoder("AIzaSyDoZcMEFpETN7gbyOC8dZqOvriFdzDdkyo")
-
 class dengueManager(models.Manager):
     def get_queryset(self):
         return super(dengueManager,
@@ -83,10 +80,6 @@ class Record(models.Model):
     estimated_starting_time = models.DateTimeField(
         null=True, blank=True)
     
-    search = geocoder.get("Watts Towers")
-    lat = search[0].geometry.location.lat
-    lng = search[0].geometry.location.lng
-
     class Meta:
         ordering = ('record_id',)
 
