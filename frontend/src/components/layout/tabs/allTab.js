@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import CrisisOverview from '../../table/CrisisOverview';
 import IncidentTable from '../../table/Table';
@@ -9,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 
 import MarkerPoint from '../../map/Map';
 import TestList from '../testList';
+import Weather from '../../weather/weather';
 
 import { connect } from 'react-redux';
 import { getAll } from '../../../actions/crisisAction';
@@ -39,6 +39,7 @@ const styles = {
   paperLeft: {
     height: 350,
     marginBottom: 20,
+    paddingTop: 5,
     textAlign: 'center'
   },
 
@@ -57,7 +58,42 @@ const styles = {
 };
 
 class AllTab extends Component {
+  state = {
+    temperature: undefined,
+    city: undefined,
+    country: undefined,
+    humidity: undefined,
+    sky: undefined,
+    wind: undefined,
+    pressure: undefined
+  };
+
   componentDidMount() {
+    const API_KEY = 'f6ebfd8a320b95201afc5ad70ee2cca4';
+
+    const city = 'Singapore';
+    const country = 'Singapore';
+
+    fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}&units=metric`
+    )
+      .then(response => response.json())
+      .then(jsonData => {
+        // jsonData is parsed json object received from url
+        // console.log(jsonData);
+        this.setState({
+          temperature: jsonData.main.temp,
+          city: jsonData.name,
+          country: jsonData.sys.country,
+          humidity: jsonData.main.humidity,
+          sky: jsonData.weather[0].description,
+          wind: jsonData.wind.speed,
+          pressure: jsonData.main.pressure
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
     this.props.getAll();
   }
 
@@ -76,6 +112,15 @@ class AllTab extends Component {
             <div zDepth={3} style={styles.divLeft}>
               <Paper style={styles.paperLeft}>
                 {/* ANCHOR Replace the Typography with weather component  */}
+                <Weather
+                  temperature={this.state.temperature}
+                  humidity={this.state.humidity}
+                  city={this.state.city}
+                  country={this.state.country}
+                  sky={this.state.sky}
+                  wind={this.state.wind}
+                  pressure={this.state.pressure}
+                />
               </Paper>
               <Paper style={styles.paperLeft}>
                 {/* ANCHOR Replace the Typography with Overview UI component */}
