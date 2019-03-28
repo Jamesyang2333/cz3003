@@ -4,12 +4,14 @@ import Dengue from "../../assets/red.png";
 import Haze from "../../assets/grey.png";
 import * as styles from "./style.scss";
 
+var type = Dengue;
 const Marker = props => {
   const { incident_type, incident_location } = props;
+  console.log(incident_type);
   if (incident_type === "dengue") {
-    const type = Dengue;
+    type = Dengue;
   } else {
-    const type = Haze;
+    type = Haze;
   }
 
   return (
@@ -20,7 +22,7 @@ const Marker = props => {
         content={location.replace(/"/g, "")}
       > */}
       {/* <Icon className={styles.container} type="warning" theme="filled" /> */}
-      <img className={styles.container} src={Haze} width="30" />
+      <img className={styles.container} src={Dengue} width="30" />
       {/* </Popover> */}
     </div>
   );
