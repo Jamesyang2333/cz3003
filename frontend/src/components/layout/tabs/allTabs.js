@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { getAll } from "../../../actions/crisisAction";
 
 import GoogleMap from "google-map-react";
-import Marker from "../../map/Marker";
+import GMap from "../../map/map";
 
 const styles = {
   row: {
@@ -65,6 +65,7 @@ class AllTab extends Component {
   render() {
     const { alls } = this.props;
     const events = alls;
+    console.log(events);
     return (
       <React.Fragment>
         <Typography component="div" variant="h6" style={{ padding: 8 * 3 }}>
@@ -91,7 +92,7 @@ class AllTab extends Component {
                 Dashboard
               </Typography>
               <Paper style={styles.map}>
-                <GoogleMap
+                {/* <GoogleMap
                   apiKey={"AIzaSyBwDk66KgX_FFx5Mj_Alik_pijCAD7-vU0"} // set if you need stats etc ...
                   center={{
                     lat: 1.36,
@@ -100,14 +101,15 @@ class AllTab extends Component {
                   zoom={11.3}
                 >
                   {/* <p data-åtip="hello world">Tooltip</p> */}
-                  {events.map(event => (
+                {/* {events.map(event => (
                     <Marker
                       incident_location={event.incident_location}
                       incident_region={event.incident_region}
                       incident_type={event.incident_type}
                     />
-                  ))}
-                </GoogleMap>
+                  ))} */}
+                {/* </GoogleMap>  */}
+                <GMap crises={events} />
               </Paper>
               <Paper style={styles.statistics}>
                 {/* ANCHOR Replace the Typography with Statistics UI component */}
