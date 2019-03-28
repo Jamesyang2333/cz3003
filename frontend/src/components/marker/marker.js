@@ -1,11 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import pin from "../../assets/pin.png";
-
+import Dengue from "../../assets/red.png";
+import Haze from "../../assets/grey.png";
 import * as styles from "./style.scss";
 
 const Marker = props => {
   const { incident_type, incident_location } = props;
+  if (incident_type === "dengue") {
+    const type = Dengue;
+  } else {
+    const type = Haze;
+  }
+
   return (
     <div lat={props.lat} lng={props.lng}>
       {/* <Popover
@@ -14,7 +20,7 @@ const Marker = props => {
         content={location.replace(/"/g, "")}
       > */}
       {/* <Icon className={styles.container} type="warning" theme="filled" /> */}
-      <img className={styles.container} src={pin} width="35" />
+      <img className={styles.container} src={Haze} width="30" />
       {/* </Popover> */}
     </div>
   );

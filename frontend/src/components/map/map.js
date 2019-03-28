@@ -78,7 +78,7 @@ class GMap extends Component {
           bootstrapURLKeys={{
             key: "AIzaSyA4Z60Vt8Bq84x2X32NQ286a_2_hADWzqI"
           }}
-          defaultCenter={{ lat: 1.3354, lng: 103.8277 }}
+          defaultCenter={{ lat: 1.36, lng: 103.8 }}
           defaultZoom={11.3}
           draggable={true}
         >
