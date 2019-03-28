@@ -20,11 +20,11 @@ body {
 
 .weather__text {
     color: #688cd1;
-    margin-left: 5px;
+    padding-left: 0px;
 }
 
 .weather__span {
-    font-size: 1.25em;
+    font-size: 1.15em;
 }
 
 .weather__key:last-child {

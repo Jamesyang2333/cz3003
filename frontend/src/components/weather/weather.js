@@ -1,5 +1,6 @@
 import React from 'react';
 import './weather.css';
+import Typography from '@material-ui/core/Typography';
 
 class Weather extends React.Component {
   render() {
@@ -15,8 +16,9 @@ class Weather extends React.Component {
         </head>
         <body>
           <h4 className='weather__header'>
-            <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-            Weather
+            <Typography variant='h6'>
+              &nbsp;&nbsp;&nbsp;&nbsp;Weather
+            </Typography>
           </h4>
 
           <hr className='speration_line' />
