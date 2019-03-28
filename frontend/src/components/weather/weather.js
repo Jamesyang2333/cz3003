@@ -14,7 +14,10 @@ class Weather extends React.Component {
           />
         </head>
         <body>
-          <h4 className='weather__header'>Weather Report</h4>
+          <h4 className='weather__header'>
+            <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+            Weather
+          </h4>
 
           <hr className='speration_line' />
 
@@ -24,7 +27,9 @@ class Weather extends React.Component {
             <span className='weather__key'>
               Temperature:
               <text className='weather__text'>
-                {this.props.temperature}&nbsp;°C
+                <span style={{ color: '#e91e63' }}>
+                  {this.props.temperature}&nbsp;°C
+                </span>
               </text>
             </span>
           </p>

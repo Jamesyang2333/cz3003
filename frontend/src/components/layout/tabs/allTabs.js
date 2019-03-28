@@ -8,7 +8,6 @@ import IncidentTable from '../../table/Table';
 import Paper from '@material-ui/core/Paper';
 
 import MarkerPoint from '../../map/Map';
-import TestList from '../testList';
 import Weather from '../../weather/weather';
 
 import { connect } from 'react-redux';
@@ -45,6 +44,9 @@ const styles = {
     marginBottom: 20,
     paddingTop: 5,
     textAlign: 'center'
+  },
+  paperLeft2: {
+    paddingBottom: 10
   },
 
   title: {
@@ -102,15 +104,8 @@ class AllTab extends Component {
   }
 
   render() {
-    const { alls } = this.props;
-    const events = alls;
     return (
       <React.Fragment>
-        <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
-          {events.map(event => (
-            <TestList info={event} />
-          ))}
-        </Typography>
         <div>
           <div style={styles.row}>
             <div zDepth={3} style={styles.divLeft}>
@@ -126,10 +121,10 @@ class AllTab extends Component {
                   pressure={this.state.pressure}
                 />
               </Paper>
-              <Paper style={styles.paperLeft}>
+              <Paper style={styles.paperLeft2}>
                 {/* ANCHOR Replace the Typography with Overview UI component */}
                 <Typography>
-                  <CrisisOverview />
+                  <CrisisOverview type='all' />
                 </Typography>
               </Paper>
             </div>
@@ -157,10 +152,7 @@ class AllTab extends Component {
                   ))}
                 </GoogleMap>
               </Paper>
-              <Paper style={styles.statistics}>
-                {/* ANCHOR Replace the Typography with Statistics UI component */}
-                <IncidentTable />
-              </Paper>
+              <IncidentTable type='all' />
             </div>
           </div>
         </div>

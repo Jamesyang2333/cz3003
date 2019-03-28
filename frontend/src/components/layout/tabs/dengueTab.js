@@ -7,7 +7,6 @@ import IncidentTable from '../../table/Table';
 
 
 import MarkerPoint from '../../map/Map';
-import TestList from '../testList';
 import Weather from '../../weather/weather';
 
 import { connect } from 'react-redux';
@@ -41,6 +40,9 @@ const styles = {
     paddingTop: 5,
     marginBottom: 20,
     textAlign: 'center'
+  },
+  paperLeft2: {
+    paddingBottom: 10
   },
 
   title: {
@@ -98,15 +100,8 @@ class DengueTab extends Component {
   }
 
   render() {
-    const { dengues } = this.props;
-    const events = dengues;
     return (
       <React.Fragment>
-        <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
-          {events.map(event => (
-            <TestList info={event} />
-          ))}
-        </Typography>
         <div>
           <div style={styles.row}>
             <div zDepth={3} style={styles.divLeft}>
@@ -122,10 +117,10 @@ class DengueTab extends Component {
                   pressure={this.state.pressure}
                 />
               </Paper>
-              <Paper style={styles.paperLeft}>
+              <Paper style={styles.paperLeft2}>
                 {/* ANCHOR Replace the Typography with Overview UI component */}
                 <Typography>
-                  <CrisisOverview />
+                  <CrisisOverview type='dengue' />
                 </Typography>
               </Paper>
             </div>
@@ -138,11 +133,8 @@ class DengueTab extends Component {
                 {/* ANCHOR Replace the Typography with Map UI component */}
                 {/* <MarkerPoint /> */}
               </Paper>
-              <Paper style={styles.statistics}>
-                {/* ANCHOR Replace the Typography with Statistics UI component */}
 
-                <IncidentTable />
-              </Paper>
+              <IncidentTable type='dengue' />
             </div>
           </div>
         </div>
@@ -156,7 +148,7 @@ DengueTab.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  dengues: state.crisis.dengs
+  dengues: state.crisis.dengues
 });
 
 export default connect(

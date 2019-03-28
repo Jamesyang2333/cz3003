@@ -41,6 +41,9 @@ const styles = {
     marginBottom: 20,
     textAlign: 'center'
   },
+  paperLeft2: {
+    paddingBottom: 10
+  },
 
   title: {
     marginBottom: 20
@@ -97,15 +100,8 @@ class HazeTab extends Component {
   }
 
   render() {
-    const { hazes } = this.props;
-    const events = hazes;
     return (
       <React.Fragment>
-        <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
-          {events.map(event => (
-            <TestList info={event} />
-          ))}
-        </Typography>
         <div>
           <div style={styles.row}>
             <div zDepth={3} style={styles.divLeft}>
@@ -121,10 +117,10 @@ class HazeTab extends Component {
                   pressure={this.state.pressure}
                 />
               </Paper>
-              <Paper style={styles.paperLeft}>
+              <Paper style={styles.paperLeft2}>
                 {/* ANCHOR Replace the Typography with Overview UI component */}
                 <Typography>
-                  <CrisisOverview />
+                  <CrisisOverview type='haze' />
                 </Typography>
               </Paper>
             </div>
@@ -137,10 +133,8 @@ class HazeTab extends Component {
                 {/* ANCHOR Replace the Typography with Map UI component */}
                 {/* <MarkerPoint /> */}
               </Paper>
-              <Paper style={styles.statistics}>
-                {/* ANCHOR Replace the Typography with Statistics UI component */}
-                <IncidentTable />
-              </Paper>
+
+              <IncidentTable type='haze' />
             </div>
           </div>
         </div>

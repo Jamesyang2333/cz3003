@@ -11,7 +11,14 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
 import { withStyles } from '@material-ui/core/styles';
 
-import { getAll } from '../../actions/crisisAction';
+import {
+  getAll_P,
+  getAll_R,
+  getDengue_P,
+  getDengue_R,
+  getHaze_P,
+  getHaze_R
+} from '../../actions/crisisAction';
 import { connect } from 'react-redux';
 
 const variantIcon = {
@@ -86,24 +93,46 @@ const styles2 = theme => ({
 
 class CrisisOverview extends Component {
   componentDidMount() {
-    this.props.getAll();
+    this.props.getAll_P();
+    this.props.getDengue_P();
+    this.props.getHaze_P();
+    this.props.getAll_R();
+    this.props.getDengue_R();
+    this.props.getHaze_R();
   }
   render() {
-    const { alls } = this.props;
-    console.log(alls);
-    const { classes } = this.props;
+    const { type, classes } = this.props;
+    var pendings;
+    var resolveds;
+    if (type === 'all') {
+      const { allsp, allsr } = this.props;
+      pendings = allsp;
+      resolveds = allsr;
+    } else if (type === 'haze') {
+      const { hazesp, hazesr } = this.props;
+      pendings = hazesp;
+      resolveds = hazesr;
+    } else {
+      const { denguesp, denguesr } = this.props;
+      pendings = denguesp;
+      resolveds = denguesr;
+    }
+    const pending_message =
+      pendings.length.toString() + ' incident(s) PENDING!';
+    const resolved_message =
+      resolveds.length.toString() + ' incident(s) RESOLVED!!';
     return (
       <div>
         <h3>Crisis Overview</h3>
         <MySnackbarContentWrapper
           variant='warning'
           className={classes.margin}
-          message='Pending!'
+          message={pending_message}
         />
         <MySnackbarContentWrapper
           variant='success'
           className={classes.margin}
-          message='Resolved!'
+          message={resolved_message}
         />
       </div>
     );
@@ -111,14 +140,25 @@ class CrisisOverview extends Component {
 }
 
 CrisisOverview.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  getAll_P: PropTypes.func.isRequired,
+  getHaze_P: PropTypes.func.isRequired,
+  getDengue_P: PropTypes.func.isRequired,
+  getAll_R: PropTypes.func.isRequired,
+  getHaze_R: PropTypes.func.isRequired,
+  getDengue_R: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  alls: state.crisis.alls
+  allsp: state.crisis.allsp,
+  denguesp: state.crisis.denguesp,
+  hazesp: state.crisis.hazesp,
+  allsr: state.crisis.allsr,
+  denguesr: state.crisis.denguesr,
+  hazesr: state.crisis.hazesr
 });
 
 export default connect(
   mapStateToProps,
-  { getAll }
+  { getAll_P, getAll_R, getDengue_P, getDengue_R, getHaze_P, getHaze_R }
 )(withStyles(styles2)(CrisisOverview));
