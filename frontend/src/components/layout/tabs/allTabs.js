@@ -6,13 +6,11 @@ import IncidentTable from "../../table/Table";
 
 import Paper from "@material-ui/core/Paper";
 
-import MarkerPoint from "../../map/Map";
 import Weather from "../../weather/weather";
 
 import { connect } from "react-redux";
 import { getAll } from "../../../actions/crisisAction";
 
-import GoogleMap from "google-map-react";
 import GMap from "../../map/map";
 
 const styles = {
@@ -136,23 +134,6 @@ class AllTab extends Component {
                 Dashboard
               </Typography>
               <Paper style={styles.map}>
-                {/* <GoogleMap
-                  apiKey={"AIzaSyBwDk66KgX_FFx5Mj_Alik_pijCAD7-vU0"} // set if you need stats etc ...
-                  center={{
-                    lat: 1.36,
-                    lng: 103.8
-                  }}
-                  zoom={11.3}
-                >
-                  {/* <p data-åtip="hello world">Tooltip</p> */}
-                {/* {events.map(event => (
-                    <Marker
-                      incident_location={event.incident_location}
-                      incident_region={event.incident_region}
-                      incident_type={event.incident_type}
-                    />
-                  ))} */}
-                {/* </GoogleMap>  */}
                 <GMap crises={events} />
               </Paper>
               <IncidentTable type="all" />
