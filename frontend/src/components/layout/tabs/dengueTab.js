@@ -6,7 +6,6 @@ import Paper from "@material-ui/core/Paper";
 import CrisisOverview from "../../table/CrisisOverview";
 import IncidentTable from "../../table/Table";
 
-import MarkerPoint from "../../map/Map";
 import TestList from "../testList";
 
 import { connect } from "react-redux";
@@ -90,7 +89,7 @@ class DengueTab extends Component {
               </Typography>
               <Paper style={styles.map}>
                 {/* ANCHOR Replace the Typography with Map UI component */}
-                <MarkerPoint />
+                {/* <MarkerPoint /> */}
               </Paper>
               <Paper style={styles.statistics}>
                 {/* ANCHOR Replace the Typography with Statistics UI component */}
