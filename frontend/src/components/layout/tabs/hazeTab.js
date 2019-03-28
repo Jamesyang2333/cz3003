@@ -11,6 +11,8 @@ import Weather from "../../weather/weather";
 import { connect } from "react-redux";
 import { getHaze } from "../../../actions/crisisAction";
 
+import GMap from "../../map/map";
+
 const styles = {
   row: {
     display: "flex",
@@ -99,6 +101,8 @@ class HazeTab extends Component {
   }
 
   render() {
+    const { hazes } = this.props;
+    const events = hazes;
     return (
       <React.Fragment>
         <div>
@@ -131,6 +135,7 @@ class HazeTab extends Component {
               <Paper style={styles.map}>
                 {/* ANCHOR Replace the Typography with Map UI component */}
                 {/* <MarkerPoint /> */}
+                <GMap crises={events} />
               </Paper>
 
               <IncidentTable type="haze" />

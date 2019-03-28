@@ -10,6 +10,8 @@ import Weather from "../../weather/weather";
 import { connect } from "react-redux";
 import { getDengue } from "../../../actions/crisisAction";
 
+import GMap from "../../map/map";
+
 const styles = {
   row: {
     display: "flex",
@@ -98,6 +100,9 @@ class DengueTab extends Component {
   }
 
   render() {
+    const { dengues } = this.props;
+    const events = dengues;
+
     return (
       <React.Fragment>
         <div>
@@ -130,6 +135,7 @@ class DengueTab extends Component {
               <Paper style={styles.map}>
                 {/* ANCHOR Replace the Typography with Map UI component */}
                 {/* <MarkerPoint /> */}
+                <GMap crises={events} />
               </Paper>
 
               <IncidentTable type="dengue" />
