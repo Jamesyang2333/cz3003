@@ -28,17 +28,15 @@ export default class Marker extends Component {
     const { text, zIndex } = this.props;
 
     const style = {
-      ...markerStyle,
-      zIndex: this.props.$hover ? 1000 : zIndex
+      ...markerStyle
+      // zIndex: this.props.$hover ? 1000 : zIndex
     };
 
-    const circleStyle = this.props.$hover
-      ? markerCircleStyleHover
-      : markerCircleStyle;
+    const circleStyle = markerCircleStyle;
 
     return (
       <div style={style}>
-        <div style={circleStyle}>{text}</div>
+        <div style={circleStyle} />
       </div>
     );
   }
