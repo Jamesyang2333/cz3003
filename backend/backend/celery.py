@@ -131,13 +131,13 @@ def sms_manager():
         time.sleep(60)
             
 
-
+# need to add trends 
 @app.task
 def email_manager():
     dDictionary = dengueSummaryByRegion()
     hDictionary = hazeSummaryByReligion()
 
-    message = ('Dear Sir Prime Minister, the summary report of haze and dengue details in Singapore are as follows:\n\n\n' + \
+    message = ('Dear Prime Minister Sir, the summary report of haze and dengue details in Singapore are as follows:\n\n\n' + \
        
         '----- Dengue Report -----\n\n' + \
 
@@ -162,7 +162,7 @@ def email_manager():
         'Northeast Singapore: ' + str(dDictionary['northEast']['numOfDeaths']) + '\n' \
         'Southeast Singapore: ' + str(dDictionary['southeast']['numOfDeaths']) + '\n\n\n' \
     
-        '----- Haze Report -----\n\n' + \
+        '----- Haze Report -----\n\n' \
         
         'PSI Levels and Air Quality Levels across Singapore: \n' \
         'SouthWest Singapore: ' + str(hDictionary['southWest']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' + '\n' \
@@ -171,8 +171,8 @@ def email_manager():
         'NorthEast Singapore: ' + str(hDictionary['northEast']['PSI']) + ' (' + hDictionary['northEast']['class'] + ')' +  '\n' \
         'SouthEast Singapore: ' + str(hDictionary['southEast']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' +  '\n\n' \
 
-        'Total number of people with haze-related conditions across Singapore: ' + hazeTotalInjured() + '\n' \
-        'Total number of haze-related deaths across Singapore: ' + hazeTotalDeath() + '\n')
+        'Total number of people with haze-related conditions across Singapore: ' + str(hazeTotalInjured()) + '\n' \
+        'Total number of haze-related deaths across Singapore: ' + str(hazeTotalDeath()) + '\n')
 
     sendEmail(message)
 

@@ -1,16 +1,16 @@
 '''
 This function sends emails to the prime minister's office to update the 
-prime minister on the crisis. 
+prime minister on haze and dengue. 
 '''
 
 from django.core.mail import send_mail 
 
 PMO_email = 'primeministercz3003@gmail.com'
 
-# function to send email to PMO
+
 def sendEmail(message):
 
-    send_mail('Crisis Report',
+    send_mail('Crisis Management System Status Report',
     message,
     'crisismanagementsystem3003@gmail.com',
     [PMO_email],  
