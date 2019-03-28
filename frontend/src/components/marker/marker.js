@@ -1,17 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Dengue from "../../assets/red.png";
-import Haze from "../../assets/grey.png";
+import Dengue from "../../assets/dengue.png";
+import Haze from "../../assets/haze.png";
 import * as styles from "./style.scss";
 
-var type = Dengue;
+var pinType = Dengue;
 const Marker = props => {
-  const { incident_type, incident_location } = props;
-  console.log(incident_type);
-  if (incident_type === "dengue") {
-    type = Dengue;
+  const { type } = props;
+
+  if (type === "dengue") {
+    pinType = Dengue;
   } else {
-    type = Haze;
+    pinType = Haze;
   }
 
   return (
@@ -22,7 +22,7 @@ const Marker = props => {
         content={location.replace(/"/g, "")}
       > */}
       {/* <Icon className={styles.container} type="warning" theme="filled" /> */}
-      <img className={styles.container} src={Dengue} width="30" />
+      <img className={styles.container} src={pinType} width="30" />
       {/* </Popover> */}
     </div>
   );
