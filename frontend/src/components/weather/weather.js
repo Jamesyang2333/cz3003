@@ -27,7 +27,9 @@ class Weather extends React.Component {
             <span className='weather__key'>
               Temperature:
               <text className='weather__text'>
-                {this.props.temperature}&nbsp;°C
+                <span style={{ color: '#e91e63' }}>
+                  {this.props.temperature}&nbsp;°C
+                </span>
               </text>
             </span>
           </p>

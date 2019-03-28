@@ -8,7 +8,7 @@ body {
 }
 
 .weather__header {
-    font-size: 1.25em;
+    font-size: 1.35em;
     font-weight: bold;
     text-align: start;
 }
@@ -33,8 +33,6 @@ body {
 
 
 .speration_line {
-    padding: 0 10px 0;
-    margin: 10px 0;
     line-height: 2px;
     border-left: 20px solid #ddd;
     border-right: 20px solid #ddd;

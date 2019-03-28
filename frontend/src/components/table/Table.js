@@ -22,33 +22,53 @@ const styles = theme => ({
   }
 });
 
-const incidents = [];
-
 function IncidentTable(props) {
-  const { classes } = props;
-
+  const { type, classes } = props;
+  var events;
+  if (type === 'all') {
+    const { alls } = props;
+    events = alls;
+  } else if (type === 'haze') {
+    const { hazes } = props;
+    events = hazes;
+  } else if (type === 'dengue') {
+    const { dengues } = props;
+    events = dengues;
+  }
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
             <TableCell>Incident id</TableCell>
-            <TableCell align='right'>Incident type</TableCell>
-            <TableCell align='right'>Incident location</TableCell>
-            <TableCell align='right'>Incident time</TableCell>
-            <TableCell align='right'>Incident status</TableCell>
+            <TableCell align='left'>Incident type</TableCell>
+            <TableCell align='left'>Incident location</TableCell>
+            <TableCell align='left'>Incident time</TableCell>
+            <TableCell align='left'>Incident status</TableCell>
           </TableRow>
         </TableHead>
-        {/* <TableBody>
-          {incidents.map(incident => (
-              <TableRow></TableRow>
-            // <TableRow key={incident.id}>
-            //   <TableCell component="th" scope="row">
-            //     {incident.}
-            //   </TableCell>
-            // </TableRow>
-          )}
-        </TableBody> */}
+        <TableBody>
+          {events.map(event => (
+            <TableRow>
+              <TableCell align='left' component='th' scope='row'>
+                {event.record_id}
+              </TableCell>
+              <TableCell align='left' component='th' scope='row'>
+                {event.incident_type}
+              </TableCell>
+              <TableCell align='left' component='th' scope='row'>
+                {event.incident_location}
+              </TableCell>
+              <TableCell align='left' component='th' scope='row'>
+                {/* {Date.parse(event.date)} */}
+                {new Date(event.date).toString().slice(0, 25)}
+              </TableCell>
+              <TableCell align='left' component='th' scope='row'>
+                {event.incident_status}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
     </Paper>
   );
