@@ -20,6 +20,7 @@ import {
   getHaze_R
 } from '../../actions/crisisAction';
 import { connect } from 'react-redux';
+import { Typography } from '@material-ui/core';
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -123,7 +124,9 @@ class CrisisOverview extends Component {
       resolveds.length.toString() + ' incident(s) RESOLVED!!';
     return (
       <div>
-        <h3>Crisis Overview</h3>
+        <Typography variant='h6' align='left' style={{ paddingTop: '5px' }}>
+          &nbsp;&nbsp;&nbsp;&nbsp;Crisis Overview
+        </Typography>
         <MySnackbarContentWrapper
           variant='warning'
           className={classes.margin}

@@ -130,7 +130,7 @@ class AllTab extends Component {
             </div>
 
             <div zDepth={3} style={styles.divRight}>
-              <Typography variant='h5' align='left' style={styles.title}>
+              <Typography variant='h4' align='left' style={styles.title}>
                 Dashboard
               </Typography>
               <Paper style={styles.map}>
