@@ -1,44 +1,44 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import CrisisOverview from "../../table/CrisisOverview";
-import IncidentTable from "../../table/Table";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import CrisisOverview from '../../table/CrisisOverview';
+import IncidentTable from '../../table/Table';
 
-import MarkerPoint from "../../map/Map";
-import TestList from "../testList";
+import MarkerPoint from '../../map/Map';
+import TestList from '../testList';
 
-import { connect } from "react-redux";
-import { getAll } from "../../../actions/crisisAction";
+import { connect } from 'react-redux';
+import { getHaze } from '../../../actions/crisisAction';
 
 const styles = {
   row: {
-    display: "flex",
-    flexDirection: "row wrap",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'row wrap',
+    width: '100%',
     marginTop: 30
   },
   divLeft: {
     flex: 1,
-    height: "100%",
+    height: '100%',
     margin: 30,
     marginTop: 10,
-    textAlign: "center"
+    textAlign: 'center'
     // padding: 10
   },
   divRight: {
-    height: "100%",
+    height: '100%',
     flex: 3,
     margin: 10,
     marginLeft: 60,
     marginRight: 30,
-    textAlign: "center"
+    textAlign: 'center'
   },
   paperLeft: {
     height: 350,
     marginBottom: 20,
-    textAlign: "center"
+    textAlign: 'center'
   },
 
   title: {
@@ -47,17 +47,17 @@ const styles = {
   map: {
     height: 400,
     marginBottom: 30,
-    textAligh: "center"
+    textAligh: 'center'
   },
   statistics: {
     height: 300,
-    textAligh: "center"
+    textAligh: 'center'
   }
 };
 
 class HazeTab extends Component {
   componentDidMount() {
-    this.props.getAll();
+    this.props.getHaze();
   }
 
   render() {
@@ -65,7 +65,7 @@ class HazeTab extends Component {
     const events = hazes;
     return (
       <React.Fragment>
-        <Typography component="div" variant="h6" style={{ padding: 8 * 3 }}>
+        <Typography component='div' variant='h6' style={{ padding: 8 * 3 }}>
           {events.map(event => (
             <TestList info={event} />
           ))}
@@ -85,7 +85,7 @@ class HazeTab extends Component {
             </div>
 
             <div zDepth={3} style={styles.divRight}>
-              <Typography variant="h5" align="left" style={styles.title}>
+              <Typography variant='h5' align='left' style={styles.title}>
                 Dashboard
               </Typography>
               <Paper style={styles.map}>
@@ -94,9 +94,7 @@ class HazeTab extends Component {
               </Paper>
               <Paper style={styles.statistics}>
                 {/* ANCHOR Replace the Typography with Statistics UI component */}
-                <Typography>
-                  <IncidentTable />
-                </Typography>
+                <IncidentTable />
               </Paper>
             </div>
           </div>
@@ -107,17 +105,14 @@ class HazeTab extends Component {
 }
 
 HazeTab.propTypes = {
-  children: PropTypes.node.isRequired,
-  getAll: PropTypes.func.isRequired
+  getHaze: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  alls: state.crisis.alls,
-  dengues: state.crisis.dengues,
   hazes: state.crisis.hazes
 });
 
 export default connect(
   mapStateToProps,
-  { getAll }
+  { getHaze }
 )(HazeTab);
