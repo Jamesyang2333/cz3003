@@ -69,7 +69,9 @@ class Header extends React.Component {
             </div>
 
             <div className={classes.loginButton}>
-              <Button color='inherit'>Login</Button>
+              <Button color='inherit' href='http://localhost:8000/admin/'>
+                Login
+              </Button>
             </div>
           </Toolbar>
           <Tabs
