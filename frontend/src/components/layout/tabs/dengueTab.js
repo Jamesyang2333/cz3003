@@ -155,7 +155,7 @@ DengueTab.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  dengues: state.crisis.dengs
+  dengues: state.crisis.dengues
 });
 
 export default connect(

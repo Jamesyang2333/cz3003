@@ -11,7 +11,7 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
 import { withStyles } from '@material-ui/core/styles';
 
-import { getAll } from '../../actions/crisisAction';
+import { getAll, getDengue, getHaze } from '../../actions/crisisAction';
 import { connect } from 'react-redux';
 
 const variantIcon = {
@@ -87,10 +87,11 @@ const styles2 = theme => ({
 class CrisisOverview extends Component {
   componentDidMount() {
     this.props.getAll();
+    this.props.getDengue();
+    this.props.getHaze();
   }
   render() {
     const { alls } = this.props;
-    console.log(alls);
     const { classes } = this.props;
     return (
       <div>
@@ -111,14 +112,19 @@ class CrisisOverview extends Component {
 }
 
 CrisisOverview.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  getAll: PropTypes.func.isRequired,
+  getHaze: PropTypes.func.isRequired,
+  getDengue: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  alls: state.crisis.alls
+  alls: state.crisis.alls,
+  dengues: state.crisis.dengues,
+  hazes: state.crisis.hazes
 });
 
 export default connect(
   mapStateToProps,
-  { getAll }
+  { getAll, getDengue, getHaze }
 )(withStyles(styles2)(CrisisOverview));

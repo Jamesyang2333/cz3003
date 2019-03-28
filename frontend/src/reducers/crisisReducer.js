@@ -2,7 +2,7 @@ import { GET_ALL, GET_DENGUE, GET_HAZE } from '../actions/types';
 
 const initialState = {
   alls: [],
-  dengs: [],
+  dengues: [],
   hazes: []
 };
 
@@ -21,7 +21,7 @@ export default function(state = initialState, action) {
     case GET_DENGUE:
       return {
         ...state,
-        dengs: action.payload
+        dengues: action.payload
       };
     default:
       return state;

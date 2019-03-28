@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabContainer from './tabContainer';
-import AllTab from './tabs/allTab';
+import AllTab from './tabs/allTabs';
 import DengueTab from './tabs/dengueTab';
 import HazeTab from './tabs/hazeTab';
 import logo_transparent from '../../assets/logo_transparent.png';
@@ -64,8 +64,8 @@ class Header extends React.Component {
               Crisis Management System
             </Typography>
             <div className={classes.buttonGroup}>
-              <Button color='primary'>Home</Button>
-              <Button color='primary'>Report</Button>
+              {/* <Button color='primary'>Home</Button> */}
+              {/* <Button color='primary'>Report</Button> */}
             </div>
 
             <div className={classes.loginButton}>

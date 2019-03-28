@@ -14,7 +14,10 @@ class Weather extends React.Component {
           />
         </head>
         <body>
-          <h4 className='weather__header'>Weather Report</h4>
+          <h4 className='weather__header'>
+            <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+            Weather
+          </h4>
 
           <hr className='speration_line' />
 
