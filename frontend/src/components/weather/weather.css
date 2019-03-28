@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather:100,200,300,300i,400,400i,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
+
+body {
+    font-family: "Open Sans", serif;
+    text-align: start;
+}
+
+.weather__header {
+    font-size: 1.35em;
+    font-weight: bold;
+    text-align: start;
+}
+
+.weather__key {
+    color: #000000;
+    margin-left: 10px;
+}
+
+.weather__text {
+    color: #688cd1;
+    padding-left: 0px;
+}
+
+.weather__span {
+    font-size: 1.15em;
+}
+
+.weather__key:last-child {
+    border: 0;
+}
+
+
+.speration_line {
+    line-height: 2px;
+    border-left: 20px solid #ddd;
+    border-right: 20px solid #ddd;
+    text-align: left;
+}

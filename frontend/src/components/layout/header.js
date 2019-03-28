@@ -64,12 +64,14 @@ class Header extends React.Component {
               Crisis Management System
             </Typography>
             <div className={classes.buttonGroup}>
-              <Button color='primary'>Home</Button>
-              <Button color='primary'>Report</Button>
+              {/* <Button color='primary'>Home</Button> */}
+              {/* <Button color='primary'>Report</Button> */}
             </div>
 
             <div className={classes.loginButton}>
-              <Button color='inherit'>Login</Button>
+              <Button color='inherit' href='http://localhost:8000/admin/'>
+                Login
+              </Button>
             </div>
           </Toolbar>
           <Tabs
