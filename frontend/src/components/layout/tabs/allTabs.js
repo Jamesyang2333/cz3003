@@ -1,45 +1,46 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import CrisisOverview from '../../table/CrisisOverview';
-import IncidentTable from '../../table/Table';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Typography from "@material-ui/core/Typography";
+import CrisisOverview from "../../table/CrisisOverview";
+import IncidentTable from "../../table/Table";
 
-import Paper from '@material-ui/core/Paper';
+import Paper from "@material-ui/core/Paper";
 
-import MarkerPoint from '../../map/Map';
-import Weather from '../../weather/weather';
+import Weather from "../../weather/weather";
 
-import { connect } from 'react-redux';
-import { getAll } from '../../../actions/crisisAction';
+import { connect } from "react-redux";
+import { getAll } from "../../../actions/crisisAction";
+
+import GMap from "../../map/map";
 
 const styles = {
   row: {
-    display: 'flex',
-    flexDirection: 'row wrap',
-    width: '100%',
+    display: "flex",
+    flexDirection: "row wrap",
+    width: "100%",
     marginTop: 30
   },
   divLeft: {
     flex: 1,
-    height: '100%',
+    height: "100%",
     margin: 30,
     marginTop: 10,
-    textAlign: 'center'
+    textAlign: "center"
     // padding: 10
   },
   divRight: {
-    height: '100%',
+    height: "100%",
     flex: 3,
     margin: 10,
     marginLeft: 60,
     marginRight: 30,
-    textAlign: 'center'
+    textAlign: "center"
   },
   paperLeft: {
     height: 350,
     marginBottom: 20,
     paddingTop: 5,
-    textAlign: 'center'
+    textAlign: "center"
   },
   paperLeft2: {
     paddingBottom: 10
@@ -51,11 +52,11 @@ const styles = {
   map: {
     height: 400,
     marginBottom: 30,
-    textAligh: 'center'
+    textAligh: "center"
   },
   statistics: {
     height: 300,
-    textAligh: 'center'
+    textAligh: "center"
   }
 };
 
@@ -71,10 +72,10 @@ class AllTab extends Component {
   };
 
   componentDidMount() {
-    const API_KEY = 'f6ebfd8a320b95201afc5ad70ee2cca4';
+    const API_KEY = "f6ebfd8a320b95201afc5ad70ee2cca4";
 
-    const city = 'Singapore';
-    const country = 'Singapore';
+    const city = "Singapore";
+    const country = "Singapore";
 
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}&units=metric`
@@ -100,6 +101,9 @@ class AllTab extends Component {
   }
 
   render() {
+    const { alls } = this.props;
+    const events = alls;
+    console.log(events);
     return (
       <React.Fragment>
         <div>
@@ -120,20 +124,19 @@ class AllTab extends Component {
               <Paper style={styles.paperLeft2}>
                 {/* ANCHOR Replace the Typography with Overview UI component */}
                 <Typography>
-                  <CrisisOverview type='all' />
+                  <CrisisOverview type="all" />
                 </Typography>
               </Paper>
             </div>
 
             <div zDepth={3} style={styles.divRight}>
-              <Typography variant='h4' align='left' style={styles.title}>
+              <Typography variant="h4" align="left" style={styles.title}>
                 Dashboard
               </Typography>
               <Paper style={styles.map}>
-                {/* ANCHOR Replace the Typography with Map UI component */}
-                <MarkerPoint />
+                <GMap crises={events} />
               </Paper>
-              <IncidentTable type='all' />
+              <IncidentTable type="all" />
             </div>
           </div>
         </div>
