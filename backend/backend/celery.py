@@ -5,6 +5,7 @@ import time
 from ccs.test import allAssistance, dengueSummaryByRegion, hazeSummaryByRegion, dengueAllData, hazeAllData
 from backend.sms import sendSMS
 from backend.facebook import postFacebook
+from backend.email import sendEmail 
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
@@ -130,7 +131,71 @@ def sms_manager():
         time.sleep(60)
             
 
-
+# need to add trends 
 @app.task
 def email_manager():
-    pass
+    dDictionary = dengueSummaryByRegion()
+    hDictionary = hazeSummaryByReligion()
+
+    message = ('Dear Prime Minister Sir, the summary report of haze and dengue details in Singapore are as follows:\n\n\n' + \
+       
+        '----- Dengue Report -----\n\n' + \
+
+        'Dengue Zones Alert Levels across Singapore: \n' \
+        'Southwest Singapore: ' + dDictionary['southWest']['class'] + '\n' \
+        'Northwest Singapore: ' + dDictionary['northWest']['class'] + '\n' \
+        'Central Singapore: ' + dDictionary['central']['class'] + '\n' \
+        'Northeast Singapore: ' + dDictionary['northEast']['class'] + '\n' \
+        'Southeast Singapore: ' + dDictionary['southEast']['class'] + '\n\n' \
+
+        'Number of people infected with dengue across Singapore: \n' \
+        'Southwest Singapore: ' + str(dDictionary['southWest']['numOfInjured']) + '\n' \
+        'Northwest Singapore: ' + str(dDictionary['northWest']['numOfInjured']) + '\n' \
+        'Central Singapore: ' + str(dDictionary['central']['numOfInjured']) + '\n' \
+        'Northeast Singapore: ' + str(dDictionary['northEast']['numOfInjured']) + '\n' \
+        'Southeast Singapore: ' + str(dDictionary['southeast']['numOfInjured']) + '\n' \
+        
+        'Number of dengue-related deaths across Singapore: \n' \
+        'Southwest Singapore: ' + str(dDictionary['southWest']['numOfDeaths']) + '\n' \
+        'Northwest Singapore: ' + str(dDictionary['northWest']['numOfDeaths']) + '\n' \
+        'Central Singapore: ' + str(dDictionary['central']['numOfDeaths']) + '\n' \
+        'Northeast Singapore: ' + str(dDictionary['northEast']['numOfDeaths']) + '\n' \
+        'Southeast Singapore: ' + str(dDictionary['southeast']['numOfDeaths']) + '\n\n\n' \
+    
+        '----- Haze Report -----\n\n' \
+        
+        'PSI Levels and Air Quality Levels across Singapore: \n' \
+        'SouthWest Singapore: ' + str(hDictionary['southWest']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' + '\n' \
+        'NorthWest Singapore: ' + str(hDictionary['northWest']['PSI']) + ' (' + hDictionary['northWest']['class'] + ')' + '\n' \
+        'Central Singapore: ' + str(hDictionary['central']['PSI']) + ' (' + hDictionary['central']['class'] + ')' + '\n' \
+        'NorthEast Singapore: ' + str(hDictionary['northEast']['PSI']) + ' (' + hDictionary['northEast']['class'] + ')' +  '\n' \
+        'SouthEast Singapore: ' + str(hDictionary['southEast']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' +  '\n\n' \
+
+        'Total number of people with haze-related conditions across Singapore: ' + str(hazeTotalInjured()) + '\n' \
+        'Total number of haze-related deaths across Singapore: ' + str(hazeTotalDeath()) + '\n')
+
+    sendEmail(message)
+
+time.sleep(1800)
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+        
+
+
+
+        
+
+
+
+

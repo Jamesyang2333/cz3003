@@ -27,7 +27,58 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Merriweather:100,200,300,300i,400,400i,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
+
+body {
+  font-family: "Open Sans", serif;
+}
+
+.weather__header {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.weather__key {
+  color: #000000;
+  margin-left: 10px;
+}
+
+.weather__text {
+  color: #688cd1;
+  margin-left: 5px;
+}
+
+.weather__span {
+  font-size: 22px;
+}
+
+.weather__key:last-child {
+  border: 0;
+}
+
+.weather__border {
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 10px;
+  width: 350px;
+  height: 280px;
+}
+
+.speration_line {
+  padding: 0 10px 0;
+  margin: 10px 0;
+  line-height: 2px;
+  border-left: 20px solid #ddd;
+  border-right: 20px solid #ddd;
+  text-align: center;
 }

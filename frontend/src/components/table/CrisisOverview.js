@@ -1,15 +1,26 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import ErrorIcon from "@material-ui/icons/Error";
-import InfoIcon from "@material-ui/icons/Info";
-import green from "@material-ui/core/colors/green";
-import amber from "@material-ui/core/colors/amber";
-import IconButton from "@material-ui/core/IconButton";
-import SnackbarContent from "@material-ui/core/SnackbarContent";
-import WarningIcon from "@material-ui/icons/Warning";
-import { withStyles } from "@material-ui/core/styles";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
+import InfoIcon from '@material-ui/icons/Info';
+import green from '@material-ui/core/colors/green';
+import amber from '@material-ui/core/colors/amber';
+import IconButton from '@material-ui/core/IconButton';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import WarningIcon from '@material-ui/icons/Warning';
+import { withStyles } from '@material-ui/core/styles';
+
+import {
+  getAll_P,
+  getAll_R,
+  getDengue_P,
+  getDengue_R,
+  getHaze_P,
+  getHaze_R
+} from '../../actions/crisisAction';
+import { connect } from 'react-redux';
+import { Typography } from '@material-ui/core';
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -33,8 +44,8 @@ const styles1 = theme => ({
     marginRight: theme.spacing.unit
   },
   message: {
-    display: "flex",
-    alignItems: "center"
+    display: 'flex',
+    alignItems: 'center'
   }
 });
 
@@ -45,18 +56,18 @@ function MySnackbarContent(props) {
   return (
     <SnackbarContent
       className={classNames(classes[variant], className)}
-      aria-describedby="client-snackbar"
+      aria-describedby='client-snackbar'
       message={
-        <span id="client-snackbar" className={classes.message}>
+        <span id='client-snackbar' className={classes.message}>
           <Icon className={classNames(classes.icon, classes.iconVariant)} />
           {message}
         </span>
       }
       action={[
         <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
+          key='close'
+          aria-label='Close'
+          color='inherit'
           className={classes.close}
           onClick={onClose}
         />
@@ -70,7 +81,7 @@ MySnackbarContent.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   message: PropTypes.node,
-  variant: PropTypes.oneOf(["success", "warning"]).isRequired
+  variant: PropTypes.oneOf(['success', 'warning']).isRequired
 };
 
 const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
@@ -82,20 +93,49 @@ const styles2 = theme => ({
 });
 
 class CrisisOverview extends Component {
+  componentDidMount() {
+    this.props.getAll_P();
+    this.props.getDengue_P();
+    this.props.getHaze_P();
+    this.props.getAll_R();
+    this.props.getDengue_R();
+    this.props.getHaze_R();
+  }
   render() {
-    const { classes } = this.props;
+    const { type, classes } = this.props;
+    var pendings;
+    var resolveds;
+    if (type === 'all') {
+      const { allsp, allsr } = this.props;
+      pendings = allsp;
+      resolveds = allsr;
+    } else if (type === 'haze') {
+      const { hazesp, hazesr } = this.props;
+      pendings = hazesp;
+      resolveds = hazesr;
+    } else {
+      const { denguesp, denguesr } = this.props;
+      pendings = denguesp;
+      resolveds = denguesr;
+    }
+    const pending_message =
+      pendings.length.toString() + ' incident(s) PENDING!';
+    const resolved_message =
+      resolveds.length.toString() + ' incident(s) RESOLVED!!';
     return (
       <div>
-        <h3>Crisis Overview</h3>
+        <Typography variant='h6' align='left' style={{ paddingTop: '5px' }}>
+          &nbsp;&nbsp;&nbsp;&nbsp;Crisis Overview
+        </Typography>
         <MySnackbarContentWrapper
-          variant="warning"
+          variant='warning'
           className={classes.margin}
-          message="Pending!"
+          message={pending_message}
         />
         <MySnackbarContentWrapper
-          variant="success"
+          variant='success'
           className={classes.margin}
-          message="Resolved!"
+          message={resolved_message}
         />
       </div>
     );
@@ -103,7 +143,25 @@ class CrisisOverview extends Component {
 }
 
 CrisisOverview.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  getAll_P: PropTypes.func.isRequired,
+  getHaze_P: PropTypes.func.isRequired,
+  getDengue_P: PropTypes.func.isRequired,
+  getAll_R: PropTypes.func.isRequired,
+  getHaze_R: PropTypes.func.isRequired,
+  getDengue_R: PropTypes.func.isRequired
 };
 
-export default withStyles(styles2)(CrisisOverview);
+const mapStateToProps = state => ({
+  allsp: state.crisis.allsp,
+  denguesp: state.crisis.denguesp,
+  hazesp: state.crisis.hazesp,
+  allsr: state.crisis.allsr,
+  denguesr: state.crisis.denguesr,
+  hazesr: state.crisis.hazesr
+});
+
+export default connect(
+  mapStateToProps,
+  { getAll_P, getAll_R, getDengue_P, getDengue_R, getHaze_P, getHaze_R }
+)(withStyles(styles2)(CrisisOverview));
