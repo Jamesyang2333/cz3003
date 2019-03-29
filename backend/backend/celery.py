@@ -176,7 +176,7 @@ def email_manager():
 
     sendEmail(message)
 
-time.sleep(1800)
+    time.sleep(1800)
 
 
 
