@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
 import time
-from ccs.test import allAssistance, dengueSummaryByRegion, hazeSummaryByRegion, dengueAllData, hazeAllData
+from ccs.test import allAssistance, dengueSummaryByRegion, hazeSummaryByRegion, dengueAllData, hazeAllData, hazeTotalDeath, hazeTotalInjured
 from backend.sms import sendSMS
 from backend.facebook import postFacebook
 from backend.email import sendEmail 
@@ -135,7 +135,7 @@ def sms_manager():
 @app.task
 def email_manager():
     dDictionary = dengueSummaryByRegion()
-    hDictionary = hazeSummaryByReligion()
+    hDictionary = hazeSummaryByRegion()
 
     message = ('Dear Prime Minister Sir, the summary report of haze and dengue details in Singapore are as follows:\n\n\n' + \
        
