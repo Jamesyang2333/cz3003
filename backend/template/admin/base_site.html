@@ -1,0 +1,27 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+
+{% block branding %}
+  <h1 id="head">
+    <img src = "{% static 'img/logo.png' %}" alt = "CCS Admin" height = "50" width = "50" class = "brand_img"> Call Center System
+  </h1>
+{% endblock %}
+
+{% block welcome-msg %}
+      Welcome,
+      <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+  {% endblock %}
+  {% block userlinks %}
+      {% if site_url %}
+          <a href="http://localhost:3000">View site</a> /
+      {% endif %}
+      
+      {% if user.has_usable_password %}
+      <a href="{% url 'admin:password_change' %}">Change password</a> /
+      {% endif %}
+      <a href="{% url 'admin:logout' %}">Log out</a>
+  {% endblock %}
+
+{% block extrastyle %}
+  <link rel = "stylesheet" href = "{% static 'css/admin.css' %}">
+{% endblock  %}
