@@ -264,9 +264,6 @@ def email_manager():
 
             time.sleep(1800)
 
-
-
-
     
 
     
