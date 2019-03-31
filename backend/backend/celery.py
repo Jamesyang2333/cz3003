@@ -5,7 +5,10 @@ import time
 from ccs.test import allAssistance, dengueSummaryByRegion, hazeSummaryByRegion, dengueAllData, hazeAllData
 from backend.sms import sendSMS
 from backend.facebook import postFacebook
-from backend.email import sendEmail 
+from backend.email import sendEmail
+from backend.telegram import postTelegram
+from backend.guidelines import postGuidelines
+from backend.models import Guideline
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
@@ -55,6 +58,8 @@ def facebook_manager():
             print("POST FACEBOOK")
             previousDengueDictionary = dengueDictionary  # set previousDengue dictionary to become current first(cuz we need to compare all 5 regions)
             postFacebook('Dengue', dengueDictionary)
+            postTelegram('Dengue', dengueDictionary)
+            postGuidelines('Dengue')
 
         # if no previous haze data to compare, just post(usually for 1st ever run only)
         print("printing haze")
@@ -63,6 +68,8 @@ def facebook_manager():
             print("POST HAZE")
             previousHazeDictionary = hazeDictionary  # set previousDengue dictionary to become current first(cuz we need to compare all 5 regions)
             postFacebook('Haze', hazeDictionary)
+            postTelegram('Haze', hazeDictionary)
+            postGuidelines('Haze')
             
         if previousDengueDictionary or previousHazeDictionary:
             #compare previous data with current data to check for any changes. If there is a change, post facebook
@@ -98,15 +105,60 @@ def facebook_manager():
                 for region in unchangedDengueRegionList:
                     del dengueDictionary[region]
                 postFacebook('Dengue', dengueDictionary)
+                postTelegram('Dengue', dengueDictionary)
+                postGuidelines('Dengue')
 
             if (hazeChanged == True):
                 previousHazeDictionary = hazeDictionary.copy()  # set previousDengue dictionary to become current first(cuz we need to compare all 5 regions)
                 for region in unchangedHazeRegionList:
                     del hazeDictionary[region]
                 postFacebook('Haze', hazeDictionary)
+                postTelegram('Haze', hazeDictionary)
+                postGuidelines('Haze')
 
         time.sleep(5)
 
+@app.task
+def startupGuidelineDatabase():
+    #'•' == '\u2022' #bullet point
+
+    #This will only initialize the database if a member's database does not have the data, so we need to check first:
+    data = Guideline.objects.all()
+    if data.exists():
+        print("Data exists in Guideline Database. Exiting startupGuidelineDatabase")
+        return
+    print("Starting Guideline Database Initialization")
+    object1 = Guideline(incident_type='Dengue', guideline_type='prevention', text='Prevent Dengue: here\'s how:'+'\n\u2022 Use insecticide sprays in dark corners (under the bed, sofa and behind curtains) and burn repellent oils inside your home'+'\n\u2022 Turn over all water storage containers when empty and store them under a shelter'+'\n\u2022 Cover bamboo pole holders when not in use'+'\n\u2022 Loosen soil in potted plants to prevent accumulation of stagnant water on surface'+\
+                        '\n\nAlternate Days:'+'\n\u2022 Change water in vases/bowls'+'\n\u2022 Remove water from flower/plant pot plates'\
+                        + '\n\nWeekly: ' + '\n\u2022 Clear fallen leaves and stagnant water in scupper drains and in the garden'+'\n\u2022 Clear any stagnant water in air cooler units'\
+                        + '\n\nMonthly: ' + '\n\u2022 Clear fallen leaves and other blockages in roof gutters'+'\n\u2022 Use sand granular insecticide in gully traps and roof gutters')
+    object1.save()
+    object1 = Guideline(incident_type='Dengue', guideline_type='symptoms', text='Most people infected have mild or no symptoms. About 1 in 4 people infected with dengue will get sick. Mild symptoms of dengue may be confused with other illnesses that cause fever and flu-like illness. Most people will recover after about one week.\n'+\
+                        '\nThe most common symptoms are fever and one or more of the following: '+'\n\u2022 Headache'+'\n\u2022 Eye Pain(typically behind the eyes)'+'\n\u2022 Muscle, joint, or bone pain'+'\n\u2022 Rash'+'\n\u2022 Nausea and vomiting'+'\n\u2022 Unusual bleeding (nose or gum bleed, small red spots under the skin, or unusual bruising)')
+    object1.save()
+    object1 = Guideline(incident_type='Dengue', guideline_type='advice', text='Please be advised to always use a mosquito repellent spray to prevent mosquito bites.')
+    object1.save()
+
+    object1 = Guideline(incident_type='Haze', guideline_type='prevention', text='7 Ways to protect yourself from the Haze: '+\
+                                                                                '\n\n\u2022 Stay Indoors'+ 'Clearly one of the best ways to battle the health effects of haze is to avoid going outdoors. Try to stay indoors as much as possible and shut the windows. Switch on the air conditioner if possible or use suitable air filters and air purifiers to remove dust particles and contaminants in the air.'+\
+                                                                                '\n\n\u2022 Avoid Strenuous Outdoor Activities'+ 'Minimise your duration of exposure outdoors. If you have to do outdoor sports or exercises, try bringing your workout indoors or postpone it instead. Aerobic activities such as running, cycling or playing football will require deep breathing and that would mean inhaling all the harmful pollutants in the air. Those who have pre-existing chronic heart or lung conditions, or who are not feeling well, should avoid going outdoors. Even if you do not have a pre-existing condition, it is still better to be safe than sorry as excessive exposure to the minuscule dust particles can increase one’s risk of developing viral and bacterial infections.'+\
+                                                                                '\n\n\u2022 Wear A Mask'+ 'If you must go outdoors, put on a respiratory mask. Surgical masks or paper masks do not offer any protection against the solid particles present in the air. An appropriate respiratory mask to combat the haze would be the N95 mask, which is designed to filter airborne particles and protect wearers from inhaling the haze particles. These respiratory masks are available at major pharmacies and supermarkets.'+\
+                                                                                '\n\n\u2022 Hydrate Frequently And Increase Fibre Intake'+ 'Given that haze can irritate your throat, causing it to be dry or sore or even lead to coughing, it is essential to drink up to flush away the toxins absorbed through the skin and lungs. Eating more fruits and vegetables that are rich in vitamins A and C can boost your immune system. Foods rich in vitamin A include carrots, sweet potatoes and spinach and are known to protect your eyes and lungs from air pollution. Foods rich in vitamin C like oranges, kiwis and broccoli can promote lung tissue health and prevent you from catching the common flu.'+\
+                                                                                '\n\n\u2022 Take Medication To Alleviate Symptoms'+'Haze can cause some adverse effects on your health which includes eye irritation, running or stuffy nose, throat irritation, headache or lung inflammation. If you experience any of these symptoms, you might want to relieve them with eye drops or cough tablets and mixtures available at pharmacies (consult your doctor first). If your symptoms worsen, do seek medical attention immediately.')
+    object1.save()
+    object1 = Guideline(incident_type='Haze', guideline_type='symptoms', text='Acute exposure to the haze can harm the nose, lungs and eyes in otherwise healthy children and result in the following symptoms:'+\
+                                                                              '\n\u2022 Itchy, watery or red eyes'+\
+                                                                              '\n\u2022 Runny nose'+\
+                                                                              '\n\u2022 Blocked nose'+\
+                                                                              '\n\u2022 Dry/sore throat'+\
+                                                                              '\n\u2022 Dry irritant cough'+\
+                                                                              '\n\u2022 Breathing difficulty'+\
+                                                                              '\n\u2022 Reduced tolerance to exercise')
+    object1.save()
+    object1 = Guideline(incident_type='Haze', guideline_type='advice', text='Please limit yourself to 30 minutes of outdoor activities when PSI Levels are above 100 and remain indoors at all times when PSI Levels are above 300.')
+    object1.save()
+    print("Finished initializing Guideline Database")
+    print(Guideline.objects.all())
 
 @app.task
 def twitter_manager():
