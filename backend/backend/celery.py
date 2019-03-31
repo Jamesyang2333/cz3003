@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
 import time
-from ccs.test import allAssistance, dengueSummaryByRegion, hazeSummaryByRegion, dengueAllData, hazeAllData, hazeTotalDeath, hazeTotalInjured
+from ccs.test import allAssistance, dengueSummaryByRegion, hazeSummaryByRegion, dengueAllData, hazeAllData
 from backend.sms import sendSMS
 from backend.facebook import postFacebook
 from backend.email import sendEmail 
@@ -134,58 +134,135 @@ def sms_manager():
 # need to add trends 
 @app.task
 def email_manager():
-    dDictionary = dengueSummaryByRegion()
-    hDictionary = hazeSummaryByRegion()
+    previousdDictionary = {} 
+    previoushDictionary = {}
 
-    message = ('Dear Prime Minister Sir, the summary report of haze and dengue details in Singapore are as follows:\n\n\n' + \
-       
-        '----- Dengue Report -----\n\n' + \
+    while True:
 
-        'Dengue Zones Alert Levels across Singapore: \n' \
-        'Southwest Singapore: ' + dDictionary['southWest']['class'] + '\n' \
-        'Northwest Singapore: ' + dDictionary['northWest']['class'] + '\n' \
-        'Central Singapore: ' + dDictionary['central']['class'] + '\n' \
-        'Northeast Singapore: ' + dDictionary['northEast']['class'] + '\n' \
-        'Southeast Singapore: ' + dDictionary['southEast']['class'] + '\n\n' \
+        dDictionary = dengueSummaryByRegion()
+        hDictionary = hazeSummaryByRegion() 
 
-        'Number of people infected with dengue across Singapore: \n' \
-        'Southwest Singapore: ' + str(dDictionary['southWest']['numOfInjured']) + '\n' \
-        'Northwest Singapore: ' + str(dDictionary['northWest']['numOfInjured']) + '\n' \
-        'Central Singapore: ' + str(dDictionary['central']['numOfInjured']) + '\n' \
-        'Northeast Singapore: ' + str(dDictionary['northEast']['numOfInjured']) + '\n' \
-        'Southeast Singapore: ' + str(dDictionary['southeast']['numOfInjured']) + '\n' \
+        message = ('Dear Prime Minister Sir, the summary report of haze and dengue details are as follows:\n\n\n\n' + \
+
+                '----- Dengue Report -----\n\n\n' + \
+
+                'Dengue Zones Alert Levels across Singapore: \n\n' \
+                'Southwest Singapore: ' + dDictionary['southWest']['class'] + '\n' \
+                'Northwest Singapore: ' + dDictionary['northWest']['class'] + '\n' \
+                'Central Singapore: ' + dDictionary['central']['class'] + '\n' \
+                'Northeast Singapore: ' + dDictionary['northEast']['class'] + '\n' \
+                'Southeast Singapore: ' + dDictionary['southEast']['class'] + '\n\n' \
+
+                'Number of people infected with dengue across Singapore: \n\n' \
+                'Southwest Singapore: ' + str(dDictionary['southWest']['numOfInjured']) + '\n' \
+                'Northwest Singapore: ' + str(dDictionary['northWest']['numOfInjured']) + '\n' \
+                'Central Singapore: ' + str(dDictionary['central']['numOfInjured']) + '\n' \
+                'Northeast Singapore: ' + str(dDictionary['northEast']['numOfInjured']) + '\n' \
+                'Southeast Singapore: ' + str(dDictionary['southEast']['numOfInjured']) + '\n\n' \
         
-        'Number of dengue-related deaths across Singapore: \n' \
-        'Southwest Singapore: ' + str(dDictionary['southWest']['numOfDeaths']) + '\n' \
-        'Northwest Singapore: ' + str(dDictionary['northWest']['numOfDeaths']) + '\n' \
-        'Central Singapore: ' + str(dDictionary['central']['numOfDeaths']) + '\n' \
-        'Northeast Singapore: ' + str(dDictionary['northEast']['numOfDeaths']) + '\n' \
-        'Southeast Singapore: ' + str(dDictionary['southeast']['numOfDeaths']) + '\n\n\n' \
+                'Number of dengue-related deaths across Singapore: \n\n' \
+                'Southwest Singapore: ' + str(dDictionary['southWest']['numOfDeaths']) + '\n' \
+                'Northwest Singapore: ' + str(dDictionary['northWest']['numOfDeaths']) + '\n' \
+                'Central Singapore: ' + str(dDictionary['central']['numOfDeaths']) + '\n' \
+                'Northeast Singapore: ' + str(dDictionary['northEast']['numOfDeaths']) + '\n' \
+                'Southeast Singapore: ' + str(dDictionary['southEast']['numOfDeaths']) + '\n\n\n' \
     
-        '----- Haze Report -----\n\n' \
+                '----- Haze Report -----\n\n\n' \
         
-        'PSI Levels and Air Quality Levels across Singapore: \n' \
-        'SouthWest Singapore: ' + str(hDictionary['southWest']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' + '\n' \
-        'NorthWest Singapore: ' + str(hDictionary['northWest']['PSI']) + ' (' + hDictionary['northWest']['class'] + ')' + '\n' \
-        'Central Singapore: ' + str(hDictionary['central']['PSI']) + ' (' + hDictionary['central']['class'] + ')' + '\n' \
-        'NorthEast Singapore: ' + str(hDictionary['northEast']['PSI']) + ' (' + hDictionary['northEast']['class'] + ')' +  '\n' \
-        'SouthEast Singapore: ' + str(hDictionary['southEast']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' +  '\n\n' \
+                'PSI Levels and Air Quality Levels across Singapore: \n' \
+                'SouthWest Singapore: ' + str(hDictionary['southWest']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' + '\n' \
+                'NorthWest Singapore: ' + str(hDictionary['northWest']['PSI']) + ' (' + hDictionary['northWest']['class'] + ')' + '\n' \
+                'Central Singapore: ' + str(hDictionary['central']['PSI']) + ' (' + hDictionary['central']['class'] + ')' + '\n' \
+                'NorthEast Singapore: ' + str(hDictionary['northEast']['PSI']) + ' (' + hDictionary['northEast']['class'] + ')' +  '\n' \
+                'SouthEast Singapore: ' + str(hDictionary['southEast']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' +  '\n\n' \
+    
+                '------ End of Report -----')
 
-        'Total number of people with haze-related conditions across Singapore: ' + str(hazeTotalInjured()) + '\n' \
-        'Total number of haze-related deaths across Singapore: ' + str(hazeTotalDeath()) + '\n')
+        if not previousdDictionary and previoushDictionary:
+            previousdDictionary = dDictionary
+            previoushDictionary = hDictionary
+            sendEmail(message)
 
-    sendEmail(message)
+        if previousdDictionary and previoushDictionary:
+            regionList = ['southWest', 'northWest', 'central', 'northEast', 'southEast']
+            changedDDict = {}
+            changedHDict = {}
+            
+            for region in regionList: 
+                dengueInjured = dDictionary[region]['numOfInjured']
+                dengueDeath = dDictionary[region]['numOfDeaths']
+                psiLevel = hDictionary[region]['PSI']
+                previousDengueInjured = previousdDictionary[region]['numOfInjured']
+                previousDengueDeath = previousdDictionary[region]['numOfDeaths']
+                previouspsiLevel = previoushDictionary[region]['PSI']
 
-    time.sleep(1800)
+                changedDengueInjured = (dengueInjured/previousDengueInjured) * 100 
+                changedDengueDeath = (dengueDeath/previousDengueDeath) * 100
+                changedPsiLevel = (psiLevel/previouspsiLevel) * 100 
 
+                changedDDict[region] = {'changedInjured':changedDengueInjured,'changedDeath':changedDengueDeath} 
+                changedHDict[region] = {'changedPSI':changedPsiLevel}
 
+                message = ('Dear Prime Minister Sir, the summary report of haze and dengue details are as follows:\n\n\n\n' + \
 
+                    '----- Dengue Report -----\n\n\n' + \
 
+                    'Dengue Zones Alert Levels across Singapore: \n\n' \
+                    'Southwest Singapore: ' + dDictionary['southWest']['class'] + '\n' \
+                    'Northwest Singapore: ' + dDictionary['northWest']['class'] + '\n' \
+                    'Central Singapore: ' + dDictionary['central']['class'] + '\n' \
+                    'Northeast Singapore: ' + dDictionary['northEast']['class'] + '\n' \
+                    'Southeast Singapore: ' + dDictionary['southEast']['class'] + '\n\n' \
 
+                    'Number of people infected with dengue across Singapore: \n\n' \
+                    'Southwest Singapore: ' + str(dDictionary['southWest']['numOfInjured']) + '\n' \
+                    'Northwest Singapore: ' + str(dDictionary['northWest']['numOfInjured']) + '\n' \
+                    'Central Singapore: ' + str(dDictionary['central']['numOfInjured']) + '\n' \
+                    'Northeast Singapore: ' + str(dDictionary['northEast']['numOfInjured']) + '\n' \
+                    'Southeast Singapore: ' + str(dDictionary['southeast']['numOfInjured']) + '\n\n' \
 
+                    'Change in number of dengue-related deaths across Singapore: \n\n ' \
+                    'Southwest Singapore: ' + str(changedDDict['southWest']['changedInjured']) + '% \n' \
+                    'Northwest Singapore: ' + str(changedDDict['northWest']['changedInjured']) + '% \n' \
+                    'Central Singapore: ' + str(changedDDict['central']['changedInjured']) + '% \n' \
+                    'Northeast Singapore: ' + str(changedDDict['northEast']['changedInjured']) + '% \n' \
+                    'Southeast Singapore: ' + str(changedDDict['southEast']['changedInjured']) + '% \n\n' \
+        
+                    'Number of dengue-related deaths across Singapore: \n\n' \
+                    'Southwest Singapore: ' + str(dDictionary['southWest']['numOfDeaths']) + '\n' \
+                    'Northwest Singapore: ' + str(dDictionary['northWest']['numOfDeaths']) + '\n' \
+                    'Central Singapore: ' + str(dDictionary['central']['numOfDeaths']) + '\n' \
+                    'Northeast Singapore: ' + str(dDictionary['northEast']['numOfDeaths']) + '\n' \
+                    'Southeast Singapore: ' + str(dDictionary['southEast']['numOfDeaths']) + '\n\n' \
 
+                    'Change in number of people infected with dengue across Singapore: \n\n ' \
+                    'Southwest Singapore: ' + str(changedDDict['southWest']['changedDeath']) + '% \n' \
+                    'Northwest Singapore: ' + str(changedDDict['northWest']['changedDeath']) + '% \n' \
+                    'Central Singapore: ' + str(changedDDict['central']['changedDeath']) + '% \n' \
+                    'Northeast Singapore: ' + str(changedDDict['northEast']['changedDeath']) + '% \n' \
+                    'Southeast Singapore: ' + str(changedDDict['southEast']['changedDeath']) + '% \n\n' \
+    
+                    '----- Haze Report -----\n\n\n' \
+        
+                    'PSI Levels and Air Quality Levels across Singapore: \n\n' \
+                    'SouthWest Singapore: ' + str(hDictionary['southWest']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' + '\n' \
+                    'NorthWest Singapore: ' + str(hDictionary['northWest']['PSI']) + ' (' + hDictionary['northWest']['class'] + ')' + '\n' \
+                    'Central Singapore: ' + str(hDictionary['central']['PSI']) + ' (' + hDictionary['central']['class'] + ')' + '\n' \
+                    'NorthEast Singapore: ' + str(hDictionary['northEast']['PSI']) + ' (' + hDictionary['northEast']['class'] + ')' +  '\n' \
+                    'SouthEast Singapore: ' + str(hDictionary['southEast']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' +  '\n\n' \
 
+                    'Change in number of people infected with dengue across Singapore: \n\n ' \
+                    'Southwest Singapore: ' + str(changedHDict['southWest']['changedPSI']) + '% \n' \
+                    'Northwest Singapore: ' + str(changedHDict['northWest']['changedPSI']) + '% \n' \
+                    'Central Singapore: ' + str(changedHDict['central']['changedPSI']) + '% \n' \
+                    'Northeast Singapore: ' + str(changedHDict['northEast']['changedPSI']) + '% \n' \
+                    'Southeast Singapore: ' + str(changedHDict['southEast']['changedPSI']) + '% \n\n' \
+    
+                    '------ End of Report -----')
+                
+                sendEmail(message)
 
+            time.sleep(1800)
 
     
 
