@@ -5,6 +5,7 @@ import Haze from '../../assets/Haze.png';
 import * as styles from './style.scss';
 import Tooltip from '@material-ui/core/Tooltip';
 
+
 var pinType = Dengue;
 var tooltipTitle = 'Dengue';
 
@@ -21,17 +22,9 @@ const Marker = props => {
 
   return (
     <div lat={props.lat} lng={props.lng}>
-      {/* <Popover
-        placement="top"
-        title={props.type.map(type => crisisType[type]).join(", ")}
-        content={location.replace(/"/g, "")}
-      > */}
-      {/* <Icon className={styles.container} type="warning" theme="filled" /> */}
       <Tooltip title={tooltipTitle}>
         <img className={styles.container} src={pinType} width='30' />
       </Tooltip>
-
-      {/* </Popover> */}
     </div>
   );
 };
