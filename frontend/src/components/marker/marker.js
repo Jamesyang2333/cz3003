@@ -1,22 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Dengue from "../../assets/dengue.png";
-import Haze from "../../assets/haze.png";
-import * as styles from "./style.scss";
-import Tooltip from "@material-ui/core/Tooltip";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Dengue from '../../assets/Dengue.png';
+import Haze from '../../assets/Haze.png';
+import * as styles from './style.scss';
+import Tooltip from '@material-ui/core/Tooltip';
 
 var pinType = Dengue;
-var tooltipTitle = "Dengue";
+var tooltipTitle = 'Dengue';
 
 const Marker = props => {
   const { type } = props;
 
-  if (type === "dengue") {
+  if (type === 'dengue') {
     pinType = Dengue;
-    tooltipTitle = "Dengue";
+    tooltipTitle = 'Dengue';
   } else {
     pinType = Haze;
-    tooltipTitle = "Haze";
+    tooltipTitle = 'Haze';
   }
 
   return (
@@ -28,7 +28,7 @@ const Marker = props => {
       > */}
       {/* <Icon className={styles.container} type="warning" theme="filled" /> */}
       <Tooltip title={tooltipTitle}>
-        <img className={styles.container} src={pinType} width="30" />
+        <img className={styles.container} src={pinType} width='30' />
       </Tooltip>
 
       {/* </Popover> */}
