@@ -5,7 +5,7 @@ import time
 from ccs.test import allAssistance, dengueSummaryByRegion, hazeSummaryByRegion, dengueAllData, hazeAllData
 from backend.sms import sendSMS
 from backend.facebook import postFacebook
-from backend.email import sendEmail
+from backend.email_helper import sendEmail
 from backend.telegram import postTelegram
 from backend.guidelines import postGuidelines
 from backend.models import Guideline
@@ -312,9 +312,9 @@ def email_manager():
     
                     '------ End of Report -----')
                 
-                sendEmail(message)
+        sendEmail(message)
 
-            time.sleep(1800)
+        time.sleep(30)
 
     
 
