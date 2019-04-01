@@ -141,30 +141,30 @@ def email_manager():
        
         '----- Dengue Report -----\n\n' + \
 
-        'Dengue Zones Alert Levels across Singapore: \n' \
+        'Dengue Zones Alert Levels across Singapore: \n\n' \
         'Southwest Singapore: ' + dDictionary['southWest']['class'] + '\n' \
         'Northwest Singapore: ' + dDictionary['northWest']['class'] + '\n' \
         'Central Singapore: ' + dDictionary['central']['class'] + '\n' \
         'Northeast Singapore: ' + dDictionary['northEast']['class'] + '\n' \
         'Southeast Singapore: ' + dDictionary['southEast']['class'] + '\n\n' \
 
-        'Number of people infected with dengue across Singapore: \n' \
+        'Number of people infected with dengue across Singapore: \n\n' \
         'Southwest Singapore: ' + str(dDictionary['southWest']['numOfInjured']) + '\n' \
         'Northwest Singapore: ' + str(dDictionary['northWest']['numOfInjured']) + '\n' \
         'Central Singapore: ' + str(dDictionary['central']['numOfInjured']) + '\n' \
         'Northeast Singapore: ' + str(dDictionary['northEast']['numOfInjured']) + '\n' \
-        'Southeast Singapore: ' + str(dDictionary['southeast']['numOfInjured']) + '\n' \
+        'Southeast Singapore: ' + str(dDictionary['southEast']['numOfInjured']) + '\n\n' \
         
-        'Number of dengue-related deaths across Singapore: \n' \
+        'Number of dengue-related deaths across Singapore: \n\n' \
         'Southwest Singapore: ' + str(dDictionary['southWest']['numOfDeaths']) + '\n' \
         'Northwest Singapore: ' + str(dDictionary['northWest']['numOfDeaths']) + '\n' \
         'Central Singapore: ' + str(dDictionary['central']['numOfDeaths']) + '\n' \
         'Northeast Singapore: ' + str(dDictionary['northEast']['numOfDeaths']) + '\n' \
-        'Southeast Singapore: ' + str(dDictionary['southeast']['numOfDeaths']) + '\n\n\n' \
+        'Southeast Singapore: ' + str(dDictionary['southEast']['numOfDeaths']) + '\n\n\n' \
     
         '----- Haze Report -----\n\n' \
         
-        'PSI Levels and Air Quality Levels across Singapore: \n' \
+        'PSI Levels and Air Quality Levels across Singapore: \n\n' \
         'SouthWest Singapore: ' + str(hDictionary['southWest']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' + '\n' \
         'NorthWest Singapore: ' + str(hDictionary['northWest']['PSI']) + ' (' + hDictionary['northWest']['class'] + ')' + '\n' \
         'Central Singapore: ' + str(hDictionary['central']['PSI']) + ' (' + hDictionary['central']['class'] + ')' + '\n' \
@@ -172,11 +172,11 @@ def email_manager():
         'SouthEast Singapore: ' + str(hDictionary['southEast']['PSI']) + ' (' + hDictionary['southWest']['class'] + ')' +  '\n\n' \
 
         'Total number of people with haze-related conditions across Singapore: ' + str(hazeTotalInjured()) + '\n' \
-        'Total number of haze-related deaths across Singapore: ' + str(hazeTotalDeath()) + '\n')
+        'Total number of haze-related deaths across Singapore: ' + str(hazeTotalDeath()) + '\n\n')
 
     sendEmail(message)
 
-    time.sleep(1800)
+    time.sleep(30)
 
 
 
