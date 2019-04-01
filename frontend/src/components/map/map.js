@@ -4,6 +4,7 @@ import Marker from "../marker/marker";
 import PropTypes from "prop-types";
 import GoogleMapReact from "google-map-react";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class GMap extends Component {
   state = {
