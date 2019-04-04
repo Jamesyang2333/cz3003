@@ -101,8 +101,9 @@ class AllTab extends Component {
   }
 
   render() {
-    const { alls } = this.props;
+    const { alls, allsp } = this.props;
     const events = alls;
+    const pendings = allsp;
     console.log(events);
     return (
       <React.Fragment>

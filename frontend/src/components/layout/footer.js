@@ -20,8 +20,15 @@ function Footer(props) {
       <div className={styles.right}>
         <Typogrphy>
           Follow us on
-          <Button href='https://www.facebook.com/'>Facebook</Button>and
-          <Button href='https://twitter.com/'>Twitter</Button>
+          <Button
+            target='_blank'
+            href='https://www.facebook.com/pg/Crisis-Management-System-2014978618798697/posts'>
+            Facebook
+          </Button>
+          and
+          <Button target='_blank' href='https://twitter.com/'>
+            Twitter
+          </Button>
           to receive latest crisis updates!
         </Typogrphy>
       </div>

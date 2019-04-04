@@ -9,7 +9,7 @@ var pinType = Dengue;
 var tooltipTitle = "Dengue";
 
 const Marker = props => {
-  const { type } = props;
+  const { type, location } = props;
 
   if (type === "dengue") {
     pinType = Dengue;
@@ -21,7 +21,7 @@ const Marker = props => {
 
   return (
     <div lat={props.lat} lng={props.lng}>
-      <Tooltip title={tooltipTitle}>
+      <Tooltip title={location}>
         <img className={styles.container} src={pinType} width="30" />
       </Tooltip>
     </div>
