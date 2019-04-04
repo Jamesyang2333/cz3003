@@ -15,7 +15,6 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
 django.setup()
 
 def sendEmail(message):
-    print(message)
 
     send_mail('Crisis Management System Status Report',
     message,
