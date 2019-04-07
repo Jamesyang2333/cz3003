@@ -7,27 +7,30 @@ class HazeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Record
         fields = ('record_id', 'date', 'incident_location', 'incident_region', 'incident_type',
-                  'incident_assistance_required', 'incident_status', 'number_of_injured', 'number_of_death')
+                  'incident_assistance_required', 'incident_status', 'number_of_injured', 'number_of_death', 'pollutant_standards_index', 'estimated_starting_time')
 
 
 class DengueSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Record
         fields = ('record_id', 'date', 'incident_location', 'incident_region', 'incident_type',
-                  'incident_assistance_required', 'incident_status', 'number_of_injured', 'number_of_death')
+                  'incident_assistance_required', 'incident_status', 'number_of_injured', 'number_of_death', 'pollutant_standards_index', 'estimated_starting_time')
 
 
 class AllSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Record
         fields = ('record_id', 'date', 'incident_location', 'incident_region', 'incident_type',
-                  'incident_assistance_required', 'incident_status', 'number_of_injured', 'number_of_death')
+                  'incident_assistance_required', 'incident_status', 'number_of_injured', 'number_of_death', 'pollutant_standards_index', 'estimated_starting_time')
+
 
 class HazePendingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Record
         fields = ('record_id', 'date', 'incident_location', 'incident_region', 'incident_type',
                   'incident_assistance_required', 'incident_status', 'number_of_injured', 'number_of_death')
+
+
 class HazeResolvedSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Record
@@ -40,6 +43,8 @@ class DenguePendingSerializer(serializers.HyperlinkedModelSerializer):
         model = Record
         fields = ('record_id', 'date', 'incident_location', 'incident_region', 'incident_type',
                   'incident_assistance_required', 'incident_status', 'number_of_injured', 'number_of_death')
+
+
 class DengueResolvedSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Record
@@ -47,13 +52,21 @@ class DengueResolvedSerializer(serializers.HyperlinkedModelSerializer):
                   'incident_assistance_required', 'incident_status', 'number_of_injured', 'number_of_death')
 
 
-
 class AllPendingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Record
         fields = ('record_id', 'date', 'incident_location', 'incident_region', 'incident_type',
                   'incident_assistance_required', 'incident_status', 'number_of_injured', 'number_of_death')
+
+
 class AllResolvedSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Record
+        fields = ('record_id', 'date', 'incident_location', 'incident_region', 'incident_type',
+                  'incident_assistance_required', 'incident_status', 'number_of_injured', 'number_of_death')
+
+
+class SingleCrisisSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Record
         fields = ('record_id', 'date', 'incident_location', 'incident_region', 'incident_type',
