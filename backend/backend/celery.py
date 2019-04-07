@@ -267,9 +267,6 @@ def email_manager():
                 changeDengue1 = sum(d['changedInjured'] for d in changedDDict.values())
                 changeDengue2 = sum(d['changedDeath'] for d in changedDDict.values())
             
-            print(changedHDict)
-            print(str(changedHDict['southEast']['changedPSI']))
-            print(type(str(changedHDict['southEast']['changedPSI'])))
 
             message = ('Dear Prime Minister Sir, the summary report of haze and dengue details are as follows:\n\n\n\n' + \
 
