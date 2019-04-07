@@ -1,46 +1,48 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import CrisisOverview from "../../table/CrisisOverview";
-import IncidentTable from "../../table/Table";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import CrisisOverview from '../../table/CrisisOverview';
+import CrisisByRegion from '../../table/CrisisByRegion';
+import IncidentTable from '../../table/Table';
+import AirQuality from '../../weather/airQuality';
 
-import TestList from "../testList";
-import Weather from "../../weather/weather";
+import Weather from '../../weather/weather';
 
-import { connect } from "react-redux";
-import { getHaze } from "../../../actions/crisisAction";
+import { connect } from 'react-redux';
+import { getHaze } from '../../../actions/crisisAction';
 
-import GMap from "../../map/map";
+import GMap from '../../map/map';
 
 const styles = {
   row: {
-    display: "flex",
-    flexDirection: "row wrap",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'row wrap',
+    width: '100%',
     marginTop: 30
   },
   divLeft: {
     flex: 1,
-    height: "100%",
+    height: '100%',
     margin: 30,
     marginTop: 10,
-    textAlign: "center"
+    marginLeft: 50,
+    textAlign: 'center'
     // padding: 10
   },
   divRight: {
-    height: "100%",
+    height: '100%',
     flex: 3,
     margin: 10,
-    marginLeft: 60,
-    marginRight: 30,
-    textAlign: "center"
+    marginLeft: 20,
+    marginRight: 50,
+    textAlign: 'center'
   },
   paperLeft: {
     height: 350,
     paddingTop: 5,
     marginBottom: 20,
-    textAlign: "center"
+    textAlign: 'center'
   },
   paperLeft2: {
     paddingBottom: 10
@@ -50,13 +52,13 @@ const styles = {
     marginBottom: 20
   },
   map: {
-    height: 400,
+    height: 600,
     marginBottom: 30,
-    textAligh: "center"
+    textAligh: 'center'
   },
   statistics: {
     height: 300,
-    textAligh: "center"
+    textAligh: 'center'
   }
 };
 
@@ -72,10 +74,10 @@ class HazeTab extends Component {
   };
 
   componentDidMount() {
-    const API_KEY = "f6ebfd8a320b95201afc5ad70ee2cca4";
+    const API_KEY = 'f6ebfd8a320b95201afc5ad70ee2cca4';
 
-    const city = "Singapore";
-    const country = "Singapore";
+    const city = 'Singapore';
+    const country = 'Singapore';
 
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}&units=metric`
@@ -97,6 +99,22 @@ class HazeTab extends Component {
       .catch(error => {
         console.error(error);
       });
+    fetch(`https://api.data.gov.sg/v1/environment/pm25`)
+      .then(response => response.json())
+      .then(jsonData => {
+        // jsonData is parsed json object received from url
+        console.log(jsonData);
+        this.setState({
+          west: jsonData.items[0].readings.pm25_one_hourly.west,
+          east: jsonData.items[0].readings.pm25_one_hourly.east,
+          north: jsonData.items[0].readings.pm25_one_hourly.north,
+          south: jsonData.items[0].readings.pm25_one_hourly.south,
+          central: jsonData.items[0].readings.pm25_one_hourly.central
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
     this.props.getHaze();
   }
 
@@ -108,8 +126,17 @@ class HazeTab extends Component {
         <div>
           <div style={styles.row}>
             <div zDepth={3} style={styles.divLeft}>
+              <Paper style={styles.paperLeft2}>
+                <Typography>
+                  <CrisisOverview type='haze' />
+                </Typography>
+              </Paper>
+              <Paper style={styles.paperLeft2}>
+                <Typography>
+                  <CrisisByRegion type='all' />
+                </Typography>
+              </Paper>
               <Paper style={styles.paperLeft}>
-                {/* ANCHOR Replace the Typography with weather component  */}
                 <Weather
                   temperature={this.state.temperature}
                   humidity={this.state.humidity}
@@ -120,16 +147,19 @@ class HazeTab extends Component {
                   pressure={this.state.pressure}
                 />
               </Paper>
-              <Paper style={styles.paperLeft2}>
-                {/* ANCHOR Replace the Typography with Overview UI component */}
-                <Typography>
-                  <CrisisOverview type="haze" />
-                </Typography>
+              <Paper style={styles.paperLeft}>
+                <AirQuality
+                  west={this.state.west}
+                  east={this.state.east}
+                  north={this.state.north}
+                  south={this.state.south}
+                  central={this.state.central}
+                />
               </Paper>
             </div>
 
             <div zDepth={3} style={styles.divRight}>
-              <Typography variant="h4" align="left" style={styles.title}>
+              <Typography variant='h4' align='left' style={styles.title}>
                 Dashboard
               </Typography>
               <Paper style={styles.map}>
@@ -138,7 +168,7 @@ class HazeTab extends Component {
                 <GMap crises={events} />
               </Paper>
 
-              <IncidentTable type="haze" />
+              <IncidentTable type='haze' />
             </div>
           </div>
         </div>

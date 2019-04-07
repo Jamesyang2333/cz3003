@@ -4,6 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+
 class dengueManager(models.Manager):
     def get_queryset(self):
         return super(dengueManager,
@@ -79,7 +80,7 @@ class Record(models.Model):
     # this variable performs the function of storing lasting time
     estimated_starting_time = models.DateTimeField(
         null=True, blank=True)
-    
+
     class Meta:
         ordering = ('record_id',)
 
