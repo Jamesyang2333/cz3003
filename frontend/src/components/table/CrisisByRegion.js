@@ -7,6 +7,8 @@ import InfoIcon from '@material-ui/icons/Info';
 import green from '@material-ui/core/colors/green';
 import amber from '@material-ui/core/colors/amber';
 import blue from '@material-ui/core/colors/blue';
+import cyan from '@material-ui/core/colors/cyan';
+import pink from '@material-ui/core/colors/pink';
 import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -38,7 +40,7 @@ const styles1 = theme => ({
     backgroundColor: amber[600]
   },
   info: {
-    backgroundColor: blue[600]
+    backgroundColor: cyan[400]
   },
   icon: {
     fontSize: 20
@@ -159,20 +161,10 @@ class CrisisOverview extends Component {
     return (
       <div>
         <Typography variant='h6' align='left' style={{ paddingTop: '5px' }}>
-          &nbsp;&nbsp;&nbsp;&nbsp;Crisis Overview
+          &nbsp;&nbsp;&nbsp;&nbsp;Crisis By Region
         </Typography>
 
         <MySnackbarContentWrapper
-          variant='success'
-          className={classes.margin}
-          message={resolved_message}
-        />
-        <MySnackbarContentWrapper
-          variant='warning'
-          className={classes.margin}
-          message={pending_message}
-        />
-        {/* <MySnackbarContentWrapper
           variant='info'
           className={classes.margin}
           message={central}
@@ -196,7 +188,7 @@ class CrisisOverview extends Component {
           variant='info'
           className={classes.margin}
           message={northEast}
-        /> */}
+        />
       </div>
     );
   }
