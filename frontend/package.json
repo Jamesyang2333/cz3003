@@ -25,7 +25,8 @@
     "recharts": "^1.5.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "yarn": "^1.13.0"
+    "yarn": "^1.13.0",
+    "date-diff": "0.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
