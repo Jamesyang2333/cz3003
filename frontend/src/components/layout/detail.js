@@ -87,11 +87,21 @@ class Detail extends React.Component {
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary='Type' secondary={incident_type} />
+              <ListItemText
+                primary='Type'
+                secondary={incident_type.replace(/^./, function(str) {
+                  return str.toUpperCase();
+                })}
+              />
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary='Location' secondary={incident_location} />
+              <ListItemText
+                primary='Location'
+                secondary={incident_location.replace(/^./, function(str) {
+                  return str.toUpperCase();
+                })}
+              />
             </ListItem>
             <Divider />
             <ListItem button>
@@ -117,7 +127,12 @@ class Detail extends React.Component {
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary='Status' secondary={incident_status} />
+              <ListItemText
+                primary='Status'
+                secondary={incident_status.replace(/^./, function(str) {
+                  return str.toUpperCase();
+                })}
+              />
             </ListItem>
             <Divider />
             <ListItem button>
@@ -130,7 +145,7 @@ class Detail extends React.Component {
             <ListItem button>
               <ListItemText
                 primary='Number of Injured'
-                secondary={number_of_injured ? number_of_death : 'N/A'}
+                secondary={number_of_injured ? number_of_injured : 'N/A'}
               />
             </ListItem>
             <Divider />

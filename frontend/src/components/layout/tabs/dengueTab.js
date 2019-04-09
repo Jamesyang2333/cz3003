@@ -39,13 +39,14 @@ const styles = {
     textAlign: 'center'
   },
   paperLeft: {
-    height: 350,
-    paddingTop: 5,
+    height: 300,
     marginBottom: 20,
+    paddingTop: 5,
     textAlign: 'center'
   },
   paperLeft2: {
-    paddingBottom: 10
+    paddingBottom: 10,
+    marginBottom: 20
   },
 
   title: {
