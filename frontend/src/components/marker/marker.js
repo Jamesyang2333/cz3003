@@ -7,7 +7,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 var pinType = Dengue;
 var tooltipTitle = "Dengue";
-
 const Marker = props => {
   const { type, location } = props;
 
