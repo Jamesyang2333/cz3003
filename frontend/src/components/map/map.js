@@ -37,8 +37,8 @@ class GMap extends Component {
       console.log(date);
 
       var timeToday = new Date();
-      if (date) {
-        var timeIncident = new Date(date);
+      if (estimated_starting_time) {
+        var timeIncident = new Date(estimated_starting_time);
         var diff = new DateDiff(timeToday, timeIncident);
         var diffDay = diff.days();
       }
