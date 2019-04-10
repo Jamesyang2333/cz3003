@@ -2,10 +2,10 @@ import React from 'react';
 import './weather.css';
 import Typography from '@material-ui/core/Typography';
 
-class Weather extends React.Component {
+class AirQuality extends React.Component {
   render() {
     return (
-      <React.Fragment>
+      <div>
         <head>
           <link
             rel='stylesheet'
@@ -15,63 +15,70 @@ class Weather extends React.Component {
           />
         </head>
         <body>
-          <Typography variant='h6'>&nbsp;&nbsp;&nbsp;&nbsp;Weather</Typography>
+          <Typography variant='h6'>
+            &nbsp;&nbsp;&nbsp;&nbsp;Air Quality
+          </Typography>
 
-          <hr className='speration_line' />
+          <hr
+            className='speration_line'
+            style={{
+              lineHeight: '2px',
+              borderLeft: '20px solid #ddd',
+              borderRight: '20px solid #ddd',
+              borderTop: '1px solid #3f51b5',
+              borderBottom: '1px solid #3f51b5',
+              textAlign: 'left'
+            }}
+          />
 
           <p className='weather__span'>
             <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-            <i class='fas fa-temperature-high' />
+            <i class='fas fa-angle-double-left' />
             <span className='weather__key'>
-              Temperature:
-              <text className='weather__text'>
-                <span style={{ color: '#e91e63' }}>
-                  {this.props.temperature}&nbsp;°C
-                </span>
-              </text>
+              West:{' '}
+              <text className='weather__text'>{this.props.west} μg/m³</text>
             </span>
           </p>
 
           <p className='weather__span'>
             <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-            <i class='fas fa-cloud-rain' />
+            <i class='fas fa-angle-double-right' />
             <span className='weather__key'>
-              Humidity:
-              <text className='weather__text'>{this.props.humidity}%</text>
+              East:{' '}
+              <text className='weather__text'>{this.props.east} μg/m³</text>
             </span>
           </p>
 
           <p className='weather__span'>
             <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-            <i class='fas fa-feather' />
+            <i class='fas fa-angle-double-up' />
             <span className='weather__key'>
-              Sky:<text className='weather__text'>{this.props.sky}</text>
+              North:{' '}
+              <text className='weather__text'>{this.props.north} μg/m³</text>
             </span>
           </p>
 
           <p className='weather__span'>
             <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-            <i class='fas fa-wind' />
+            <i class='fas fa-angle-double-down' />
             <span className='weather__key'>
-              Wind Speed:
-              <text className='weather__text'>{this.props.wind}&nbsp;km/h</text>
+              South:{' '}
+              <text className='weather__text'>{this.props.south} μg/m³</text>
             </span>
           </p>
 
           <p className='weather__span'>
             <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-            <i class='far fa-arrow-alt-circle-down' />
+            <i class='fas fa-arrows-alt' />
             <span className='weather__key'>
-              Pressure:
-              <text className='weather__text'>
-                {this.props.pressure}&nbsp;mbar
-              </text>
+              Central:{' '}
+              <text className='weather__text'>{this.props.central} μg/m³</text>
             </span>
           </p>
         </body>
-      </React.Fragment>
+      </div>
     );
   }
 }
 
-export default Weather;
+export default AirQuality;

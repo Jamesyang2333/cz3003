@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import CrisisOverview from '../../table/CrisisOverview';
+import CrisisByRegion from '../../table/CrisisByRegion';
 import IncidentTable from '../../table/Table';
+import AirQuality from '../../weather/airQuality';
 
-import MarkerPoint from '../../map/Map';
-import TestList from '../testList';
 import Weather from '../../weather/weather';
 
 import { connect } from 'react-redux';
 import { getHaze } from '../../../actions/crisisAction';
+
+import GMap from '../../map/map';
 
 const styles = {
   row: {
@@ -24,6 +26,7 @@ const styles = {
     height: '100%',
     margin: 30,
     marginTop: 10,
+    marginLeft: 50,
     textAlign: 'center'
     // padding: 10
   },
@@ -31,25 +34,26 @@ const styles = {
     height: '100%',
     flex: 3,
     margin: 10,
-    marginLeft: 60,
-    marginRight: 30,
+    marginLeft: 20,
+    marginRight: 50,
     textAlign: 'center'
   },
   paperLeft: {
-    height: 350,
-    paddingTop: 5,
+    height: 300,
     marginBottom: 20,
+    paddingTop: 5,
     textAlign: 'center'
   },
   paperLeft2: {
-    paddingBottom: 10
+    paddingBottom: 10,
+    marginBottom: 20
   },
 
   title: {
     marginBottom: 20
   },
   map: {
-    height: 400,
+    height: 600,
     marginBottom: 30,
     textAligh: 'center'
   },
@@ -96,17 +100,44 @@ class HazeTab extends Component {
       .catch(error => {
         console.error(error);
       });
+    fetch(`https://api.data.gov.sg/v1/environment/pm25`)
+      .then(response => response.json())
+      .then(jsonData => {
+        // jsonData is parsed json object received from url
+        console.log(jsonData);
+        this.setState({
+          west: jsonData.items[0].readings.pm25_one_hourly.west,
+          east: jsonData.items[0].readings.pm25_one_hourly.east,
+          north: jsonData.items[0].readings.pm25_one_hourly.north,
+          south: jsonData.items[0].readings.pm25_one_hourly.south,
+          central: jsonData.items[0].readings.pm25_one_hourly.central
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
     this.props.getHaze();
   }
 
   render() {
+    const { hazes } = this.props;
+    const events = hazes;
     return (
       <React.Fragment>
         <div>
           <div style={styles.row}>
             <div zDepth={3} style={styles.divLeft}>
+              <Paper style={styles.paperLeft2}>
+                <Typography>
+                  <CrisisOverview type='haze' />
+                </Typography>
+              </Paper>
+              <Paper style={styles.paperLeft2}>
+                <Typography>
+                  <CrisisByRegion type='all' />
+                </Typography>
+              </Paper>
               <Paper style={styles.paperLeft}>
-                {/* ANCHOR Replace the Typography with weather component  */}
                 <Weather
                   temperature={this.state.temperature}
                   humidity={this.state.humidity}
@@ -117,11 +148,14 @@ class HazeTab extends Component {
                   pressure={this.state.pressure}
                 />
               </Paper>
-              <Paper style={styles.paperLeft2}>
-                {/* ANCHOR Replace the Typography with Overview UI component */}
-                <Typography>
-                  <CrisisOverview type='haze' />
-                </Typography>
+              <Paper style={styles.paperLeft}>
+                <AirQuality
+                  west={this.state.west}
+                  east={this.state.east}
+                  north={this.state.north}
+                  south={this.state.south}
+                  central={this.state.central}
+                />
               </Paper>
             </div>
 
@@ -132,6 +166,7 @@ class HazeTab extends Component {
               <Paper style={styles.map}>
                 {/* ANCHOR Replace the Typography with Map UI component */}
                 {/* <MarkerPoint /> */}
+                <GMap crises={events} />
               </Paper>
 
               <IncidentTable type='haze' />
