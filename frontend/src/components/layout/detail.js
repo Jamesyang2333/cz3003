@@ -174,10 +174,7 @@ class Detail extends React.Component {
             <ListItem button>
               <ListItemText
                 primary='Report Time'
-                // secondary={estimated_starting_time}
-                secondary={new Date(estimated_starting_time)
-                  .toString()
-                  .slice(0, 25)}
+                secondary={new Date(date).toString().slice(0, 25)}
               />
             </ListItem>
             <Divider />

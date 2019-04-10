@@ -5,7 +5,6 @@ import CrisisOverview from '../../table/CrisisOverview';
 import CrisisByRegion from '../../table/CrisisByRegion';
 import IncidentTable from '../../table/Table';
 import AirQuality from '../../weather/airQuality';
-import Detail from '../detail';
 
 import Paper from '@material-ui/core/Paper';
 
