@@ -36,11 +36,29 @@ class GMap extends Component {
       const estimated_starting_time = crisis.estimated_starting_time;
       console.log(date);
 
-      var timeToday = new Date();
-      if (estimated_starting_time) {
-        var timeIncident = new Date(estimated_starting_time);
+      if (status == 'pending' && date) {
+        var timeToday = new Date();
+        var timeIncident = new Date(date);
         var diff = new DateDiff(timeToday, timeIncident);
         var diffDay = diff.days();
+        console.log(type);
+        console.log(diffDay);
+        if (
+          (diffDay < 21 && type == 'dengue') ||
+          (diffDay == 0 && type == 'haze')
+        )
+          return (
+            <Marker
+              key={index}
+              lat={lat}
+              lng={lng}
+              type={type}
+              location={location}
+              date={date}
+              estimated_starting_time={estimated_starting_time}
+              crisisType={crisisType || []}
+            />
+          );
       }
 
       if (
@@ -80,7 +98,8 @@ class GMap extends Component {
                 location: crisis.incident_location,
                 date: crisis.date,
                 estimated_starting_time: crisis.estimated_starting_time,
-                type: type
+                type: type,
+                status: crisis.incident_status
               }
             }
           });

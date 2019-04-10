@@ -7,7 +7,7 @@ sms_manager.delay()
 facebook_manager.delay()
 email_manager.delay()
 
-# can call this as many times as you want cuz it will check if the database already has data. if not, add data to database
-
+# facebook_manager.delay() 
+#can call this as many times as you want cuz it will check if the database already has data. if not, add data to database
 # print(Guideline.objects.all())
 # #postGuidelines('Dengue')
