@@ -85,15 +85,25 @@ class Detail extends React.Component {
           <List>
             <Divider />
             <ListItem button>
-              <ListItemText primary="Record ID" secondary={record_id} />
+              <ListItemText primary='Record ID' secondary={record_id} />
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary="Type" secondary={incident_type} />
+              <ListItemText
+                primary='Type'
+                secondary={incident_type.replace(/^./, function(str) {
+                  return str.toUpperCase();
+                })}
+              />
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary="Location" secondary={incident_location} />
+              <ListItemText
+                primary='Location'
+                secondary={incident_location.replace(/^./, function(str) {
+                  return str.toUpperCase();
+                })}
+              />
             </ListItem>
             <Divider />
             <ListItem button>
@@ -119,7 +129,12 @@ class Detail extends React.Component {
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary="Status" secondary={incident_status} />
+              <ListItemText
+                primary='Status'
+                secondary={incident_status.replace(/^./, function(str) {
+                  return str.toUpperCase();
+                })}
+              />
             </ListItem>
             <Divider />
             <ListItem button>
@@ -131,8 +146,8 @@ class Detail extends React.Component {
             <Divider />
             <ListItem button>
               <ListItemText
-                primary="Number of Injured"
-                secondary={number_of_injured ? number_of_death : "N/A"}
+                primary='Number of Injured'
+                secondary={number_of_injured ? number_of_injured : 'N/A'}
               />
             </ListItem>
             <Divider />
@@ -160,11 +175,8 @@ class Detail extends React.Component {
             <Divider />
             <ListItem button>
               <ListItemText
-                primary="Report Time"
-                // secondary={estimated_starting_time}
-                secondary={new Date(estimated_starting_time)
-                  .toString()
-                  .slice(0, 25)}
+                primary='Report Time'
+                secondary={new Date(date).toString().slice(0, 25)}
               />
             </ListItem>
             <Divider />

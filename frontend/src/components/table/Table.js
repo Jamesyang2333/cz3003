@@ -56,16 +56,24 @@ function IncidentTable(props) {
                 {event.record_id}
               </TableCell>
               <TableCell align='left' component='th' scope='row'>
-                {event.incident_type}
+                {event.incident_type.toString().replace(/^./, function(str) {
+                  return str.toUpperCase();
+                })}
               </TableCell>
               <TableCell align='left' component='th' scope='row'>
-                {event.incident_location}
+                {event.incident_location
+                  .toString()
+                  .replace(/^./, function(str) {
+                    return str.toUpperCase();
+                  })}
               </TableCell>
               <TableCell align='left' component='th' scope='row'>
                 {new Date(event.date).toString().slice(0, 25)}
               </TableCell>
               <TableCell align='left' component='th' scope='row'>
-                {event.incident_status}
+                {event.incident_status.toString().replace(/^./, function(str) {
+                  return str.toUpperCase();
+                })}
               </TableCell>
               <TableCell align='center' component='th' scope='row'>
                 <Detail event={event} />

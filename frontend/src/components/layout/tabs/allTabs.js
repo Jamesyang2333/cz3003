@@ -1,11 +1,12 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
-import CrisisOverview from "../../table/CrisisOverview";
-import CrisisByRegion from "../../table/CrisisByRegion";
-import IncidentTable from "../../table/Table";
-import AirQuality from "../../weather/airQuality";
-import Detail from "../detail";
+
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+import CrisisOverview from '../../table/CrisisOverview';
+import CrisisByRegion from '../../table/CrisisByRegion';
+import IncidentTable from '../../table/Table';
+import AirQuality from '../../weather/airQuality';
+
 
 import Paper from "@material-ui/core/Paper";
 
