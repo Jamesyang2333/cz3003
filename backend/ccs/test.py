@@ -107,10 +107,12 @@ def dengueSummaryByRegion():
         if cnt == 1:
             continue
         if (now - record[1]).total_seconds() <= 1814400:
-            print(record[6])
-            summary[record[3]]['numOfInjured'] += record[6]
-            print(record[7])
-            summary[record[3]]['numOfDeaths'] += record[7]
+            # print(record[6])
+            if record[6] != None:
+                summary[record[3]]['numOfInjured'] += record[6]
+            # print(record[7])
+            if record[7] != None:
+                summary[record[3]]['numOfDeaths'] += record[7]
     for key in regionList:
         if (summary[key]['numOfInjured'] + summary[key]['numOfDeaths']) == 0:
             summary[key]['class'] = 'Green'
@@ -176,17 +178,16 @@ def allAssistance():
         
 if __name__ == "__main__":
     # How to use the functions
-    print("print all haze record with all data")
-    haze = hazeAllData()
-    print(haze)
+    print("print all dengue record with all data")
+    dengueData = dengueAllData()
+    print(dengueData)
     print()
 
     print("print haze record summary by region")
-    summary = hazeSummaryByRegion()
+    summary = dengueSummaryByRegion()
     print(summary)
     print()
 
-    print("get the psi and class of southWest region")
-    print(summary['southWest']['PSI'])
+    print("get the number of Injured and class of southWest region")
+    print(summary['southWest']['numOfInjured'])
     print(summary['southWest']['class'])
-
