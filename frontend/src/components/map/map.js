@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import Marker from "../marker/marker";
-import PropTypes from "prop-types";
-import GoogleMapReact from "google-map-react";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import DateDiff from "date-diff";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Marker from '../marker/marker';
+import PropTypes from 'prop-types';
+import GoogleMapReact from 'google-map-react';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import DateDiff from 'date-diff';
 
 class GMap extends Component {
   state = {
@@ -45,7 +45,8 @@ class GMap extends Component {
 
       if (
         date &&
-        ((diffDay < 21 && type == "dengue") || (diffDay == 0 && type == "haze"))
+        // FIXME Change haze diffDay to 30 for demo purpose
+        ((diffDay < 21 && type == 'dengue') || (diffDay < 30 && type == 'haze'))
       )
         return (
           <Marker
@@ -74,8 +75,8 @@ class GMap extends Component {
             crises: {
               ...this.state.crises,
               [id]: {
-                lat: location && location["lat"],
-                lng: location && location["lng"],
+                lat: location && location['lat'],
+                lng: location && location['lng'],
                 location: crisis.incident_location,
                 date: crisis.date,
                 estimated_starting_time: crisis.estimated_starting_time,
@@ -90,15 +91,14 @@ class GMap extends Component {
   render() {
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: "100%", width: "100%" }}>
+      <div style={{ height: '100%', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{
-            key: "AIzaSyA4Z60Vt8Bq84x2X32NQ286a_2_hADWzqI"
+            key: 'AIzaSyA4Z60Vt8Bq84x2X32NQ286a_2_hADWzqI'
           }}
           defaultCenter={{ lat: 1.36, lng: 103.8 }}
           defaultZoom={11.3}
-          draggable={true}
-        >
+          draggable={true}>
           {this.createMarker()}
         </GoogleMapReact>
       </div>
