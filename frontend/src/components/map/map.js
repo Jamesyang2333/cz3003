@@ -4,6 +4,7 @@ import Marker from "../marker/marker";
 import PropTypes from "prop-types";
 import GoogleMapReact from "google-map-react";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import DateDiff from "date-diff";
 
 class GMap extends Component {
   state = {
@@ -24,31 +25,46 @@ class GMap extends Component {
     const { crises } = this.state;
     const { crisisType } = this.props;
     if (Object.keys(crises).length === 0) return null;
-    console.log(crises);
     return Object.keys(crises).map(index => {
       const crisis = crises[index];
       const lat = crisis.lat;
       const lng = crisis.lng;
       const type = crisis.type;
       const location = crisis.location;
-      return (
-        <Marker
-          key={index}
-          lat={lat}
-          lng={lng}
-          type={type}
-          location={location}
-          crisisType={crisisType || []}
-        />
-      );
+      const status = crisis.status;
+      const date = crisis.date;
+      const estimated_starting_time = crisis.estimated_starting_time;
+      console.log(date);
+
+      var timeToday = new Date();
+      if (estimated_starting_time) {
+        var timeIncident = new Date(estimated_starting_time);
+        var diff = new DateDiff(timeToday, timeIncident);
+        var diffDay = diff.days();
+      }
+
+      if (
+        date &&
+        ((diffDay < 21 && type == "dengue") || (diffDay == 0 && type == "haze"))
+      )
+        return (
+          <Marker
+            key={index}
+            lat={lat}
+            lng={lng}
+            type={type}
+            location={location}
+            date={date}
+            estimated_starting_time={estimated_starting_time}
+            crisisType={crisisType || []}
+          />
+        );
     });
   };
 
   loadCrisesIntoState = () => {
-    console.log(this.props.crises);
     // this.setState({ crises: {} }); // clear cached crisis
     this.props.crises.forEach(crisis => {
-      console.log(crisis);
       const id = crisis.record_id;
       const type = crisis.incident_type;
       geocodeByAddress(crisis.incident_location)
@@ -61,6 +77,8 @@ class GMap extends Component {
                 lat: location && location["lat"],
                 lng: location && location["lng"],
                 location: crisis.incident_location,
+                date: crisis.date,
+                estimated_starting_time: crisis.estimated_starting_time,
                 type: type
               }
             }
@@ -70,7 +88,6 @@ class GMap extends Component {
   };
 
   render() {
-    console.log(this.props.crises);
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: "100%", width: "100%" }}>
@@ -98,7 +115,8 @@ GMap.propTypes = {
   incident_assistance_required: PropTypes.string,
   incident_status: PropTypes.string,
   number_of_injured: PropTypes.string,
-  number_of_deaths: PropTypes
+  number_of_deaths: PropTypes,
+  estimated_starting_time: PropTypes.string
 };
 const mapStateToProps = state => {
   const { system } = state;
