@@ -3172,10 +3172,20 @@ data-urls@^1.0.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+date-diff@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/date-diff/-/date-diff-0.2.1.tgz#5ebc707baddf56bd7cbd1e5d4fcec4acaf50d259"
+  integrity sha512-Cjq+RuGGqLSIyWo9It3ShVEAmHSjifF/UAPSTlT0GBT8O5zgfY0hwaH4y1n9uoB71ey3pfybbcRpvUwCEclLKw==
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   integrity sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=
+
+date-unit-ms@^1.1.0:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/date-unit-ms/-/date-unit-ms-1.1.13.tgz#07790d540b10f8dd42483e14dbb70dfdb7f90f10"
+  integrity sha512-ehxYuiREy1Qviz6JnHBrpbLXUx5+oQ5ydhkW/2lZkOUOZbEX8h/NcPRL4JQfN4K3iufhOLTfg4PLm9SHpwghjw==
 
 debounce@^1.1.0:
   version "1.2.0"
@@ -3371,6 +3381,13 @@ detective@^4.3.1:
   dependencies:
     acorn "^5.2.1"
     defined "^1.0.0"
+
+diff-dates@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/diff-dates/-/diff-dates-1.0.12.tgz#8fffeb9a0e007db86f4bbb7c959d158ec16e9be5"
+  integrity sha512-BzLapmfcyhgyBqXQyIWg5jAEbCzQMi3jkbITHoUT4vVZ8zcGgwafuwy6JpnlK+qE5N0U92SKD852LVjHYMVE5Q==
+  dependencies:
+    date-unit-ms "^1.1.0"
 
 diff@^3.2.0:
   version "3.5.0"
