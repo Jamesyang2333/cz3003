@@ -185,10 +185,10 @@ class IncidentTable extends React.Component {
                   </TableCell>
                   <TableCell align='left' component='th' scope='row'>
                     {row.incident_location
-                      .toString()
-                      .replace(/^./, function(str) {
-                        return str.toUpperCase();
-                      })}
+                      .toLowerCase()
+                      .split(' ')
+                      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                      .join(' ')}
                   </TableCell>
                   <TableCell align='left' component='th' scope='row'>
                     {new Date(row.date).toString().slice(0, 25)}
