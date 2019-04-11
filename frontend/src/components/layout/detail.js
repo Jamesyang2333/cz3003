@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
@@ -14,6 +14,19 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import {
+  FormatListNumbered,
+  Category,
+  LocationOn,
+  Map,
+  AccessibilityNew,
+  NotificationImportant,
+  InvertColors,
+  Opacity,
+  AlarmOn,
+  AccessTime,
+  Dehaze
+} from '@material-ui/icons';
 
 const styles = {
   appBar: {
@@ -83,18 +96,42 @@ class Detail extends React.Component {
           <List>
             <Divider />
             <ListItem button>
+              <ListItemIcon>
+                <FormatListNumbered />
+              </ListItemIcon>
               <ListItemText primary='Record ID' secondary={record_id} />
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary='Type' secondary={incident_type} />
+              <ListItemIcon>
+                <Category />
+              </ListItemIcon>
+              <ListItemText
+                primary='Type'
+                secondary={incident_type.replace(/^./, function(str) {
+                  return str.toUpperCase();
+                })}
+              />
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary='Location' secondary={incident_location} />
+              <ListItemIcon>
+                <LocationOn />
+              </ListItemIcon>
+              <ListItemText
+                primary='Location'
+                secondary={incident_location
+                  .toLowerCase()
+                  .split(' ')
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ')}
+              />
             </ListItem>
             <Divider />
             <ListItem button>
+              <ListItemIcon>
+                <Map />
+              </ListItemIcon>
               <ListItemText
                 primary='Region'
                 secondary={incident_region
@@ -106,6 +143,9 @@ class Detail extends React.Component {
             </ListItem>
             <Divider />
             <ListItem button>
+              <ListItemIcon>
+                <AccessibilityNew />
+              </ListItemIcon>
               <ListItemText
                 primary='Assistance Required'
                 secondary={incident_assistance_required
@@ -117,10 +157,21 @@ class Detail extends React.Component {
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary='Status' secondary={incident_status} />
+              <ListItemIcon>
+                <NotificationImportant />
+              </ListItemIcon>
+              <ListItemText
+                primary='Status'
+                secondary={incident_status.replace(/^./, function(str) {
+                  return str.toUpperCase();
+                })}
+              />
             </ListItem>
             <Divider />
             <ListItem button>
+              <ListItemIcon>
+                <Opacity />
+              </ListItemIcon>
               <ListItemText
                 primary='Number of Deaths'
                 secondary={number_of_death ? number_of_death : 'N/A'}
@@ -128,15 +179,21 @@ class Detail extends React.Component {
             </ListItem>
             <Divider />
             <ListItem button>
+              <ListItemIcon>
+                <InvertColors />
+              </ListItemIcon>
               <ListItemText
                 primary='Number of Injured'
-                secondary={number_of_injured ? number_of_death : 'N/A'}
+                secondary={number_of_injured ? number_of_injured : 'N/A'}
               />
             </ListItem>
             <Divider />
             {incident_type === 'haze' ? (
               <div>
                 <ListItem button>
+                  <ListItemIcon>
+                    <Dehaze />
+                  </ListItemIcon>
                   <ListItemText
                     primary='Pollutant Standard Index'
                     secondary={
@@ -149,20 +206,26 @@ class Detail extends React.Component {
                 <Divider />
               </div>
             ) : null}
+
             <ListItem button>
+              <ListItemIcon>
+                <AlarmOn />
+              </ListItemIcon>
               <ListItemText
                 primary='Estimated Starting Time'
-                secondary={new Date(date).toString().slice(0, 25)}
+                secondary={new Date(estimated_starting_time)
+                  .toString()
+                  .slice(0, 25)}
               />
             </ListItem>
             <Divider />
             <ListItem button>
+              <ListItemIcon>
+                <AccessTime />
+              </ListItemIcon>
               <ListItemText
                 primary='Report Time'
-                // secondary={estimated_starting_time}
-                secondary={new Date(estimated_starting_time)
-                  .toString()
-                  .slice(0, 25)}
+                secondary={new Date(date).toString().slice(0, 25)}
               />
             </ListItem>
             <Divider />
