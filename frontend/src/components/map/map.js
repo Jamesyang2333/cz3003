@@ -36,6 +36,7 @@ class GMap extends Component {
       const estimated_starting_time = crisis.estimated_starting_time;
       console.log(date);
 
+      // FIXME Only show pending crisis
       if (status == 'pending' && date) {
         var timeToday = new Date();
         var timeIncident = new Date(date);
