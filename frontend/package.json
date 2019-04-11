@@ -6,6 +6,8 @@
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
+    "date-diff": "0.2.1",
+    "diff-dates": "^1.0.12",
     "google-map-react": "^1.1.2",
     "node-sass": "^4.11.0",
     "prop-types": "15.7.2",

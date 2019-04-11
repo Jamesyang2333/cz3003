@@ -35,7 +35,7 @@ class AirQuality extends React.Component {
             <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
             <i class='fas fa-angle-double-left' />
             <span className='weather__key'>
-              Jurong West:{' '}
+              West:{' '}
               <text className='weather__text'>{this.props.west} μg/m³</text>
             </span>
           </p>
@@ -44,7 +44,7 @@ class AirQuality extends React.Component {
             <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
             <i class='fas fa-angle-double-right' />
             <span className='weather__key'>
-              Pasir Ris:{' '}
+              East:{' '}
               <text className='weather__text'>{this.props.east} μg/m³</text>
             </span>
           </p>
@@ -53,7 +53,7 @@ class AirQuality extends React.Component {
             <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
             <i class='fas fa-angle-double-up' />
             <span className='weather__key'>
-              Sembawang:{' '}
+              North:{' '}
               <text className='weather__text'>{this.props.north} μg/m³</text>
             </span>
           </p>
@@ -62,7 +62,7 @@ class AirQuality extends React.Component {
             <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
             <i class='fas fa-angle-double-down' />
             <span className='weather__key'>
-              Tiong Bahru:{' '}
+              South:{' '}
               <text className='weather__text'>{this.props.south} μg/m³</text>
             </span>
           </p>
@@ -71,7 +71,7 @@ class AirQuality extends React.Component {
             <text className='weather__text'>&nbsp;&nbsp;&nbsp;&nbsp;</text>
             <i class='fas fa-arrows-alt' />
             <span className='weather__key'>
-              Central Reservoir:{' '}
+              Central:{' '}
               <text className='weather__text'>{this.props.central} μg/m³</text>
             </span>
           </p>

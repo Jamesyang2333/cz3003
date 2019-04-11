@@ -5,7 +5,6 @@ import CrisisOverview from '../../table/CrisisOverview';
 import CrisisByRegion from '../../table/CrisisByRegion';
 import IncidentTable from '../../table/Table';
 import AirQuality from '../../weather/airQuality';
-import Detail from '../detail';
 
 import Paper from '@material-ui/core/Paper';
 
@@ -123,10 +122,10 @@ class AllTab extends Component {
   }
 
   render() {
-    const { alls, allsp } = this.props;
+    const { alls } = this.props;
     const events = alls;
-    const pendings = allsp;
-    console.log(events);
+    // const pendings = allsp;
+    // console.log(events);
     return (
       <React.Fragment>
         <div>
@@ -171,7 +170,7 @@ class AllTab extends Component {
               <Paper style={styles.map}>
                 <GMap crises={events} />
               </Paper>
-              <IncidentTable type='all' />
+              <IncidentTable type='all' events={events} />
             </div>
           </div>
         </div>
