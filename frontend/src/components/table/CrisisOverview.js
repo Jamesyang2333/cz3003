@@ -97,6 +97,14 @@ const styles2 = theme => ({
 });
 
 class CrisisOverview extends Component {
+  componentDidMount() {
+    this.props.getAll_P();
+    this.props.getDengue_P();
+    this.props.getHaze_P();
+    this.props.getAll_R();
+    this.props.getDengue_R();
+    this.props.getHaze_R();
+  }
   render() {
     const { type, classes } = this.props;
     var pendings;
@@ -118,7 +126,36 @@ class CrisisOverview extends Component {
       pendings.length.toString() + ' incident(s) PENDING!';
     const resolved_message =
       resolveds.length.toString() + ' incident(s) RESOLVED!';
-
+    var southWest;
+    var northWest;
+    var southEast;
+    var northEast;
+    var central;
+    southWest =
+      (
+        pendings.filter(p => p.incident_region === 'southWest').length +
+        resolveds.filter(p => p.incident_region === 'southWest').length
+      ).toString() + ' incident(s) in Southwest region';
+    northWest =
+      (
+        pendings.filter(p => p.incident_region === 'northWest').length +
+        resolveds.filter(p => p.incident_region === 'northWest').length
+      ).toString() + ' incident(s) in Northwest region';
+    southEast =
+      (
+        pendings.filter(p => p.incident_region === 'southEast').length +
+        resolveds.filter(p => p.incident_region === 'southEast').length
+      ).toString() + ' incident(s) in Southeast region';
+    northEast =
+      (
+        pendings.filter(p => p.incident_region === 'northEast').length +
+        resolveds.filter(p => p.incident_region === 'northEast').length
+      ).toString() + ' incident(s) in Northeast region';
+    central =
+      (
+        pendings.filter(p => p.incident_region === 'central').length +
+        resolveds.filter(p => p.incident_region === 'central').length
+      ).toString() + ' incident(s) in Central region';
     return (
       <div>
         <Typography variant='h6' align='left' style={{ paddingTop: '5px' }}>
