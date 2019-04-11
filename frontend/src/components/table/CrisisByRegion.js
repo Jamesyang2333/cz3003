@@ -101,14 +101,6 @@ const styles2 = theme => ({
 });
 
 class CrisisOverview extends Component {
-  componentDidMount() {
-    this.props.getAll_P();
-    this.props.getDengue_P();
-    this.props.getHaze_P();
-    // this.props.getAll_R();
-    // this.props.getDengue_R();
-    // this.props.getHaze_R();
-  }
   render() {
     const { type, classes } = this.props;
     var pendings;
