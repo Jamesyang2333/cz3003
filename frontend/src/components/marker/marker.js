@@ -1,27 +1,32 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Dengue from "../../assets/Dengue.png";
-import Haze from "../../assets/Haze.png";
-import * as styles from "./style.scss";
-import Tooltip from "@material-ui/core/Tooltip";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Dengue from '../../assets/Dengue.png';
+import Haze from '../../assets/Haze.png';
+import * as styles from './style.scss';
+import Tooltip from '@material-ui/core/Tooltip';
 
 var pinType = Dengue;
-var tooltipTitle = "Dengue";
+var tooltipTitle = 'Dengue';
 const Marker = props => {
   const { type, location } = props;
 
-  if (type === "dengue") {
+  if (type === 'dengue') {
     pinType = Dengue;
-    tooltipTitle = "Dengue";
+    tooltipTitle = 'Dengue';
   } else {
     pinType = Haze;
-    tooltipTitle = "Haze";
+    tooltipTitle = 'Haze';
   }
 
   return (
     <div lat={props.lat} lng={props.lng}>
-      <Tooltip title={location}>
-        <img className={styles.container} src={pinType} width="30" />
+      <Tooltip
+        title={location
+          .toLowerCase()
+          .split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')}>
+        <img className={styles.container} src={pinType} width='30' />
       </Tooltip>
     </div>
   );

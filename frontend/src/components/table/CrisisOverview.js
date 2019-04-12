@@ -172,31 +172,6 @@ class CrisisOverview extends Component {
           className={classes.margin}
           message={pending_message}
         />
-        {/* <MySnackbarContentWrapper
-          variant='info'
-          className={classes.margin}
-          message={central}
-        />
-        <MySnackbarContentWrapper
-          variant='info'
-          className={classes.margin}
-          message={southWest}
-        />
-        <MySnackbarContentWrapper
-          variant='info'
-          className={classes.margin}
-          message={southEast}
-        />
-        <MySnackbarContentWrapper
-          variant='info'
-          className={classes.margin}
-          message={northWest}
-        />
-        <MySnackbarContentWrapper
-          variant='info'
-          className={classes.margin}
-          message={northEast}
-        /> */}
       </div>
     );
   }
