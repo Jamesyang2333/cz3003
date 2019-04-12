@@ -3172,6 +3172,11 @@ data-urls@^1.0.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+date-diff@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/date-diff/-/date-diff-0.2.1.tgz#5ebc707baddf56bd7cbd1e5d4fcec4acaf50d259"
+  integrity sha512-Cjq+RuGGqLSIyWo9It3ShVEAmHSjifF/UAPSTlT0GBT8O5zgfY0hwaH4y1n9uoB71ey3pfybbcRpvUwCEclLKw==
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
