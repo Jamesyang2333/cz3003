@@ -3,7 +3,7 @@ import nexmo
 
 def sendSMS(emergencyType, assistanceType, IncidentLocation, department):
     numberDic = {'SCDF': '6593548076'}
-    client = nexmo.Client(key='9369c004', secret='k0BkH393kDW2mPZz')
+    client = nexmo.Client(key='9369c004', secret='')
     client.send_message({
         'from': 'Nexmo',
         'to': numberDic[department],
